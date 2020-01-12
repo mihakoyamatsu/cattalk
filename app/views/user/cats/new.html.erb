@@ -1,0 +1,25 @@
+<section class="container">
+<h1>ネコ新規登録</h1>
+<%= form_for(@cat, url: user_user_cats_path(current_user.id)) do |f| %>
+	<p>プロフィール画像</p><%= attachment_image_tag @cat, :image_id, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+	  <%= f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+	<p>猫の名前</p><%= f.text_field :name %>
+	<p>性別</p><%= f.text_field :sex %>
+	<p>種類</p><%= f.text_field :breed %>
+	<p>年齢</p><%= f.text_field :age %>
+	<p>体重</p><%= f.text_field :weight %>
+	<p>血液型</p><%= f.text_field :blood_type %>
+	<p>飼い始めた経緯</p><%= f.text_field :story %>
+	<p>利用目的</p><%= f.text_field :purpose %>
+	<p>希望条件</p>
+	<p>性別</p><%= f.text_field :condition_sex %>
+	<p>種類</p><%= f.text_field :condition_breed %>
+	<p>年齢</p><%= f.text_field :condition_age %>
+	<p>血液型</p><%= f.text_field :condition_blood_type %>
+	<p>体重</p><%= f.text_field :condition_weight %>
+	<p>期間</p><%= f.text_field :term %>
+	<p>備考</p><%= f.text_field :note %>
+	<p>ステータス</p><%= f.text_field :status %>
+	<%= f.submit '登録する' %>
+<% end %>
+</section>

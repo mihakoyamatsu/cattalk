@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  image_id: MyString
+  name: MyString
+  sex: 1
+  age: 1
+  breed: 1
+  weight: MyString
+  blood_type: 1
+  story: MyText
+  purpose: 1
+  condition_sex: 1
+  condition_breed: 1
+  condition_age: 1
+  condition_blood_type: 1
+  condition_weight: MyString
+  term: MyString
+  note: MyText
+  status: 1
+
+two:
+  user_id: 1
+  image_id: MyString
+  name: MyString
+  sex: 1
+  age: 1
+  breed: 1
+  weight: MyString
+  blood_type: 1
+  story: MyText
+  purpose: 1
+  condition_sex: 1
+  condition_breed: 1
+  condition_age: 1
+  condition_blood_type: 1
+  condition_weight: MyString
+  term: MyString
+  note: MyText
+  status: 1

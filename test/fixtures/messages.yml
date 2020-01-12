@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room_id: 1
+  chat_user_id: 1
+  body: MyString
+  is_deleted: false
+
+two:
+  room_id: 1
+  chat_user_id: 1
+  body: MyString
+  is_deleted: false

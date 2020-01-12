@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cattalk</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="navbar nav-head", style="padding: 0 50px; margin-bottom: 0px;">
+      <% if yield(:mypage).empty? %>
+          <% if admin_signed_in? %>
+            <p class="navbar-text navbar-right">
+              管理者としてログインしています
+            </p>
+          <% elsif user_signed_in? %>
+            <nav class="nav navbar-nav navbar-left">
+              <a href="/" class="btn-circle-fishy">cattalk</a>
+            </nav>
+            <nav>
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
+                </li>
+                <li>
+                  <%= link_to 'マイページ', user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                <li>
+                  <%= link_to '供血希望にゃんこ', user_user_cats_path(current_user.id), class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                <li>
+                <%= link_to "輸血希望にゃんこ", user_user_cats_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                <li>
+                  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn-secondary", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                <br>
+                  <p class="navbar-text navbar-right">
+                    ようこそ　<%= current_user.name %>さん。
+                  </p>
+              </ul>
+            </nav>
+          <% else %>
+            <nav class="nav navbar-nav navbar-left">
+              <a href="/" class="btn-circle-fishy">cattalk</a>
+            </nav>
+            <nav>
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <%= link_to "アバウト", user_homes_about_path, class: "btn-dark", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                <li>
+                  <%=link_to "サインアップ", new_user_registration_path, class: "btn-primary", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                <li>
+                  <%= link_to "ログイン", new_user_session_path, class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
+                </li>
+                  <p class="navbar-text navbar-right">
+                    ようこそ　ゲストさん。
+                  </p>
+              </ul>
+            </nav>
+          <% end %>
+      <% else %>
+        <%= yield(:mypage) %>
+      <% end %>
+
+    </header>
+    <footer class="footer navbar-inverse", style="height: 80px; line-height: 80px; font-size: 20px;">
+      <div class="container">
+        <p class="nav navbar-nav navbar-right", style="color:white">© All rights reserved by cattalk.Inc.</p>
+      </div>
+    </footer>
+    <%= yield %>
+  </body>
+</html>
