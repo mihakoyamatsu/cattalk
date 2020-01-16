@@ -1,8 +1,7 @@
 <section class="container">
 <h1>ネコ新規登録</h1>
-<%= form_for(@cat, url: user_user_cats_path(current_user.id)) do |f| %>
-	<p>プロフィール画像</p><%= attachment_image_tag @cat, :image_id, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
-	  <%= f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+<%= form_for(@cat, url: user_cats_path(current_user.id), method: :post) do |f| %>
+	<p>プロフィール画像</p><%= f.attachment_field :cat_images_images,multiple: true %>
 	<p>猫の名前</p><%= f.text_field :name %>
 	<p>性別</p><%= f.text_field :sex %>
 	<p>種類</p><%= f.text_field :breed %>

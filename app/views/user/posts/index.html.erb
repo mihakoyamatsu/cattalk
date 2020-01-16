@@ -1,9 +1,23 @@
 <section class="container">
-<h1>投稿一覧</h1>
-<!--% @posts.each do |post| %-->
-  <!--%= post.user.image_id %-->
-  <!--%= post.user.name %-->
-  <p>本文</p>
-  <span><!--%= @post.body %--></span>
-<!--% end %-->
+  <table class="table table-responsive">
+    <tbody>
+      <section class="container-index">
+        <div class="row">
+          <h1>投稿一覧</h1>
+        <div class="row">
+          <% @posts.each do |post| %>
+          <tr>
+          	<td><%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %> </td>
+            <td><%= link_to post.user.name, user_post_path(post.id) %></td>
+            <td><%= post.body %></td>
+              <% post.post_images.each do |post_image| %>
+                <td><%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %> </td>
+              <% end %>
+
+            <td><%= link_to "#{post.comments.count} コメント", user_post_path(post.id) %><%= link_to "#{post.favorites.count}いいね！", user_post_path(post.id) %></td>
+          </tr>
+          <% end %>
+    </tbody>
+  </table>
+  </div>
 </section>

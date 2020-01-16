@@ -16,17 +16,20 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :show]
     put 'users/:id/hide' => 'users#hide', as: 'users_hide'
+
     resources :post_reports, only: [:index, :show]
     put 'post_reports/:id/hide' => 'post_reports#hide', as: 'post_reports_hide'
+
     resources :user_reports, only: [:index, :show]
     put 'user_reports/:id/hide' => 'user_reports#hide', as: 'user_reports_hide'
+    
     resources :rooms, only: [:index, :show]
     put 'rooms/:id/hide' => 'rooms#hide', as: 'rooms_hide'
   end
 
   namespace :user do
     get 'homes/about' => "homes#about"
-    resources :posts, only: [:create, :index, :new, :show ] do
+    resources :posts, only: [:create, :index, :new, :show] do
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create]
       resources :post_reports, only: [:create]
@@ -35,8 +38,9 @@ Rails.application.routes.draw do
     put "/comments/:id/hide" => "comments#hide", as: 'comments_hide'
     get "/users/favorites" => "users#favorites", as: 'favorites'
 
-    resources :users, only: [:show, :edit ] do
-      resources :cats
+
+    resources :cats
+    resources :users, only: [:show, :edit, :update ] do
       resources :reminders
       resources :user_reports, only: [:create]
     end

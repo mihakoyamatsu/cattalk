@@ -1,46 +1,55 @@
-<h1>User::Users#show</h1>
-<p>Find me in app/views/user/users/show.html.erb</p>
+<div class="container">
 <% content_for :mypage do %>
   <nav class="nav navbar-nav navbar-left">
     <a href="/" class="btn-circle-fishy">cattalk</a>
   </nav>
-  <nav>
-	<ul class="nav navbar-nav navbar-right">
-	<li>
-	  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to 'にゃんこメモ', user_user_reminders_path(current_user.id), class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	<%= link_to "フォロー", root_path, class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to 'フォロワー', root_path, method: :delete, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<br>
-	  <p class="navbar-text navbar-right">
-	    <%= current_user.name %>さんのマイページです。
-	  </p>
-	</ul>
-	</nav>
+	<div class="nav navbar-right">
+		<div>
+		  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to 'ねこ新規登録', new_user_cat_path(current_user.id), class: "btn-dark", style: "margin-left: 20px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to 'にゃんこメモ', user_user_reminders_path(current_user.id), class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<div>
+		<%= link_to "フォロー", root_path, class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to 'フォロワー', root_path, method: :delete, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<br>
+		  <p class="navbar-text navbar-right">
+		    <%= current_user.name %>さんのマイページです。
+		  </p>
+	</div>
 <% end %>
 
-<h4>プロフィール編集</h4>
-<p>プロフィール画像</p><%= attachment_image_tag @user, :image_id, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+
+<h4>プロフィール</h4>
+<p>プロフィール画像</p><%= attachment_image_tag @user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
 <p>アカウント名</p><%= @user.name %>
 <p>メールアドレス</p><%= @user.email %>
 <p>都道府県</p><%= @user.prefectures %>
-  <% if @user.id == current_user.id %>
-    <%= link_to 'プロフィール編集', edit_user_user_path(current_user.id), class: "btn-warning" %>
-  <% end %>
 
 <h4>MY CAT</h4>
-<% if Cat.exists? %>
-    <%= link_to 'MY CAT 編集', edit_user_user_cat_path(current_user.id), class: "btn-warning" %>
-<% else %>
-    <%= link_to 'MY CAT 新規登録', new_user_user_cat_path(current_user.id), class: "btn-warning" %>
+<% @user.cats.each.with_index(1) do |cat, i| %>
+	<p>にゃんこ<%= i %></p><%= cat.name %>
+	<p>血液型</p><%= cat.condition_blood_type %>
+	<p>ステータス</p><%= cat.status %>
+	<p>種類</p><%= cat.condition_breed %>
+	<p>期間</p><%= cat.term %>
+	<p>note</p><%= cat.note %>
 <% end %>
+
+<% if @user.cats.empty? %>
+    <%= link_to 'MY CAT 新規登録', new_user_cat_path(current_user.id), class: "btn-warning" %>
+<% end %>
+
+<% if @user.id == current_user.id %>
+    <%= link_to 'プロフィール/MY CAT編集', edit_user_user_path(current_user.id), class: "btn-warning" %>
+  <% end %>

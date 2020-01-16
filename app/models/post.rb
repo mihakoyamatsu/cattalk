@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
+	belongs_to :user
     has_many :post_images, dependent: :destroy
-    accepts_nested_attributes_for :post_images
-    attachment :image
+    accepts_attachments_for :post_images, attachment: :image
     has_many :favorites, dependent: :destroy
 	has_many :favorited_users, through: :favorites, source: :user
 	def favorited_by?(user)
@@ -10,4 +10,3 @@ class Post < ApplicationRecord
     has_many :comments, dependent: :destroy
     has_many :post_reports, dependent: :destroy
 end
-

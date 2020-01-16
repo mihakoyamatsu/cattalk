@@ -22,12 +22,11 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
   database: cattalk
   adapter: mysql2
   encoding: utf8mb4
   charset: utf8mb4
   collation: utf8mb4_general_ci
   host: rds-mysql-server.cwyqsxp6optv.ap-northeast-1.rds.amazonaws.com
-  username: miha
+  username: root
   password: h920cKQF
