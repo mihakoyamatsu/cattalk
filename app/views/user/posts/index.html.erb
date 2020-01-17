@@ -8,12 +8,11 @@
           <% @posts.each do |post| %>
           <tr>
           	<td><%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %> </td>
-            <td><%= link_to post.user.name, user_post_path(post.id) %></td>
-            <td><%= post.body %></td>
+            <td><%= link_to post.user.name, user_user_path(post.user.id) %></td>
+            <td><%= link_to post.body, user_post_path(post.id) %></td>
               <% post.post_images.each do |post_image| %>
                 <td><%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %> </td>
               <% end %>
-
             <td><%= link_to "#{post.comments.count} コメント", user_post_path(post.id) %><%= link_to "#{post.favorites.count}いいね！", user_post_path(post.id) %></td>
           </tr>
           <% end %>

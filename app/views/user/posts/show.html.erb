@@ -5,7 +5,7 @@
       <h1>投稿詳細</h1>
       <tr>
       	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %> </td>
-        <td><%= @post.user.name %></td>
+        <td><%= link_to @post.user.name, user_user_path(@post.user.id) %></td>
         <td><%= @post.body %></td>
       </tr>
     </table>

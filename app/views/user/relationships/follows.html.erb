@@ -1,0 +1,18 @@
+<h1>フォロー一覧</h1>
+
+<% @user.followings.each do |user| %>
+  <hr>
+	<h4>プロフィール</h4>
+	<p>プロフィール画像</p><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+	<p>アカウント名</p><%= user.name %>
+	<p>メールアドレス</p><%= user.email %>
+	<p>都道府県</p><%= user.prefectures %>
+	<% if current_user != user %>
+	    <!--%= link_to "通報する", user_user_user_reports_path(@user.id),method: :post %-->
+	    <% if user.followed_by?(current_user) %>
+	      <%= link_to "フォロー済み", user_user_relationships_path(user.id),method: :delete %>
+	    <% else %>
+	      <%= link_to "フォローする", user_user_relationships_path(user.id),method: :post %>
+	    <% end %>
+	<% end %>
+<% end %>

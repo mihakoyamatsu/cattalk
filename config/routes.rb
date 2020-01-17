@@ -41,7 +41,15 @@ Rails.application.routes.draw do
 
     resources :cats
     resources :users, only: [:show, :edit, :update ] do
+      resource :relationships, only: [:create, :destroy]
+        member do
+          get :follows,:followers
+        end
       resources :reminders
+
+        member do
+          get :reporting,:reported
+        end
       resources :user_reports, only: [:create]
     end
 

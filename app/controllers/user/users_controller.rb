@@ -2,6 +2,7 @@ class User::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @cats = Cat.where(user_id:current_user.id)
+    #@follow = Following_relationships.new
   end
 
   def edit
@@ -19,6 +20,14 @@ class User::UsersController < ApplicationController
   end
 
   def favorites
+  end
+  
+  def follows
+    @user = User.find(params[:id])
+  end
+
+  def followers
+    @user = User.find(params[:id])
   end
 
   private
