@@ -1,13 +1,8 @@
 class User::UserReportsController < ApplicationController
-	def new
-      report = User_report.new
-	end
 	def create
-	  @user = User.find(params[:user_report][:report_user_id])
-      current_user.report!(@user)
-      #report.reported_user_id = @user.id
-	  #report.save!
-	  redirect_to user_user_path(@user)
+	  report = current_user.reporting_relationships.build(reported_user_id: params[:user_id])
+	  report.save!
+	  redirect_to root_path
 	end
 
     private

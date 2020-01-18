@@ -1,0 +1,7 @@
+
+<%= form_for(@report, url: user_user_user_reports_path(@user.id), method: :post)  do |f| %>
+  
+  <p>通報内容</p><%= f.text_field :report_message %>
+  <%= f.submit "通報する" %>
+<% end %>
+ 

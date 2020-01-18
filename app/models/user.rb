@@ -9,15 +9,15 @@ class User < ApplicationRecord
   has_many :cats, dependent: :destroy
   accepts_nested_attributes_for :cats, allow_destroy: true
 
-  #has_many :active_reports, foreign_key: "report_user_id",class_name: "User_report",
-  #has_many :reporting, through: :active_reports
+  has_many :reporting_relationships, foreign_key: "report_user_id",class_name: "UserReport"
+  has_many :reported_users, through: :reporting_relationships, source: :reported_user
 
-  #has_many :passive_reports,foreign_key: "reported_user_id",class_name: "User_report",
-  #has_many :reported, through: :passive_reports
+  has_many :reported_relationships,foreign_key: "reported_user_id",class_name: "UserReport"
+  has_many :report_users, through: :reported_relationships, source: :report_user
 
-  #def reported_by?(user)
-    #passive_reports.find_by(report_user_id: user.id).present?
-  #end
+  def reported_by?(user)
+    reported_relationships.find_by(report_user_id: user.id).present?
+  end
 
   #def report!(user)
     #active_reports.create!(report_user_id: user.id)

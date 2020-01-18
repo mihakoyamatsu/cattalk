@@ -13,9 +13,21 @@
     <header class="navbar nav-head", style="padding: 0 50px; margin-bottom: 0px;">
       <% if yield(:mypage).empty? %>
           <% if admin_signed_in? %>
+            <nav class="nav navbar-nav navbar-left">
+              <p>cattalk</p>
+            </nav>
+            <nav>
+              <div class="nav navbar-nav navbar-right">
+                <div><%= link_to '全ユーザー一覧', admin_users_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
+                <div><%= link_to '通報ユーザー一覧', admin_user_reports_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
+                <div><%= link_to '通報投稿一覧', admin_post_reports_path, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to '全DMルーム', admin_rooms_path, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "btn-secondary", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <br>
             <p class="navbar-text navbar-right">
               管理者としてログインしています
             </p>
+
           <% elsif user_signed_in? %>
             <nav class="nav navbar-nav navbar-left">
               <a href="/" class="btn-circle-fishy">cattalk</a>

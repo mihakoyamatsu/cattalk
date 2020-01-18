@@ -1,2 +1,17 @@
 <h1>Admin::UserReports#index</h1>
 <p>Find me in app/views/admin/user_reports/index.html.erb</p>
+<h3>通報されたユーザー一覧</h3>
+<% if @users.present? %>
+	<% @users.each do |user| %>
+	<hr>
+	<h4>プロフィール</h4>
+	<p>プロフィール画像</p><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+	<p>アカウント名</p><%= user.name %>
+	<p>メールアドレス</p><%= user.email %>
+	<p>都道府県</p><%= user.prefectures %>
+	<p>通報内容</p>
+	<!--%= user.report_user.report_message %-->
+	<% end %>
+<% else %>
+  <p>通報されているユーザーはいません</p>
+<% end %>

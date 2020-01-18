@@ -2,7 +2,7 @@ class User::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @cats = Cat.where(user_id:current_user.id)
-    #@follow = Following_relationships.new
+    @report = current_user.reporting_relationships.build(reported_user_id: @user.id)
   end
 
   def edit
@@ -20,6 +20,8 @@ class User::UsersController < ApplicationController
   end
 
   def favorites
+    @favorites = Favorite.where(user_id:current_user.id)
+
   end
   
   def follows
