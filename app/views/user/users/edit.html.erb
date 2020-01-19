@@ -1,5 +1,4 @@
-
-
+<h3>ユーザー編集</h3>
 <%= form_for(@user, url:user_user_path(current_user.id) ,method: :patch) do |f| %>
 	<p>プロフィール画像</p><%= attachment_image_tag @user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
 	<%= f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form" %>

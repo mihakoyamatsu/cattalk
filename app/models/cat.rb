@@ -5,6 +5,6 @@ class Cat < ApplicationRecord
 	#attachment :image
 
 	enum sex: {
-        オス:0,メス:1
+        オス:0, オス去勢済み:1 ,メス:2,メス避妊済み:3
 	}
 end

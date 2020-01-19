@@ -5,7 +5,7 @@
 		<span>飼い主さん<%= link_to user.name, user_user_path(user.id) %></span>
 		<span>お住まい地域<%= user.prefectures %><%= user.cities %></span>
 		<% user.cats.each.with_index(1) do |cat, i| %>
-		<% if cat.sex == "オス" %>
+		<% if cat.sex == "オス" and cat.sex =="オス去勢済み" %>
 		  <div class = "cat-profile_mens">
 			<p>にゃんこ<%= i %></p>
 		    <p>おなまえ:<%= cat.name %></p>

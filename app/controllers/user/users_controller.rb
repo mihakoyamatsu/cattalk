@@ -1,8 +1,28 @@
 class User::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    if @user.cats.exists?
     @cats = Cat.where(user_id:current_user.id)
+    end
     @report = current_user.reporting_relationships.build(reported_user_id: @user.id)
+    @currentUserEntry = Entry.where(user_id: current_user.id)
+    @userEntry = Entry.where(user_id: @user.id)
+    unless @user.id == current_user.id
+      @currentUserEntry.each do |currentuser|
+        @userEntry.each do |user|
+          if currentuser.room_id == user.room_id then
+            @isRoom = true
+            @roomId = currentuser.room_id
+          end
+        end
+      end
+    unless @isRoom
+        @room = Room.new
+        @entry = Entry.new
+    end
+    end
+    #@roomId = (@user.entries.pluck(:room_id) & current_user.entries.pluck(:room_id)).first
+    #@room, @entry = Room.new, Entry.new unless @roomId
   end
 
   def edit

@@ -40,10 +40,10 @@ class User < ApplicationRecord
     #def unfollow!(user)
       #following_relationships.find_by(following_id: user.id).destroy
     #end
+  has_many :direct_messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   has_many :reminders, dependent: :destroy
-  has_many :rooms, dependent: :destroy
-
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :post_reports, dependent: :destroy

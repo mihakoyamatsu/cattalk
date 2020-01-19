@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_165020) do
+ActiveRecord::Schema.define(version: 2020_01_19_064503) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -64,6 +64,23 @@ ActiveRecord::Schema.define(version: 2020_01_17_165020) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "direct_messages", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "user_id"
+    t.string "body"
+    t.boolean "is_deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "user_id"
+    t.boolean "is_deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "post_id"
     t.integer "user_id"
@@ -73,7 +90,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_165020) do
 
   create_table "messages", force: :cascade do |t|
     t.integer "room_id"
-    t.integer "chat_user_id"
+    t.integer "user_id"
     t.string "body"
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
@@ -121,7 +138,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_165020) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "name"
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

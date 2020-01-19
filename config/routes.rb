@@ -47,7 +47,6 @@ Rails.application.routes.draw do
           get :follows,:followers
         end
       resources :reminders
-
       resource :user_reports, only: [:create]
       #以下、アドミンには必要なやつ 通報一覧　いらんかも。。
         #member do

@@ -1,0 +1,27 @@
+<div class="cat-info">
+  	<div class="cat-profile-edit">
+  	  <h3>ネコ編集</h3>
+		  <%= f.attachment_field :cat_images_images,multiple: true %>
+		<span>猫の名前<%= f.text_field :name %></span>
+		<span>性別<%= f.select :sex, Cat.sexes.keys.to_a, {prompt: '選択してください'}, class: 'form-control btn btn-info' %></span>
+		<span>種類<%= f.text_field :breed %></span><br>
+		<span>年齢<%= f.text_field :age %></span>
+		<span>体重<%= f.text_field :weight %></span>
+		<span>血液型<%= f.text_field :blood_type %></span>
+		<span>飼い始めた経緯<%= f.text_field :story %></span>
+	</div>
+	<div class="cat-message-edit">
+	  <h5>メッセージ</h5>
+		<span>利用目的<%= f.text_field :purpose %></span>
+		<h6>希望条件</h6>
+		<span>性別<%= f.text_field :condition_sex %></span>
+		<span>種類<%= f.text_field :condition_breed %></span>
+		<span>年齢<%= f.text_field :condition_age %></span>
+		<span>血液型<%= f.text_field :condition_blood_type %></span>
+		<span>体重<%= f.text_field :condition_weight %></span><br>
+		<span>期間<%= f.text_field :term %></span>
+		<span>備考<%= f.text_field :note %></span>
+		<span>ステータス<%= f.text_field :status %></span>
+		<%= link_to_remove_association "削除", f %>
+    </div>
+  </div>
