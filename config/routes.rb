@@ -39,22 +39,20 @@ Rails.application.routes.draw do
     put "/comments/:id/hide" => "comments#hide", as: 'comments_hide'
     get "/users/favorites" => "users#favorites", as: 'favorites'
     #get "/users/user/report/new" => "users#new"
-    
     resources :cats
+    resources :reminders
+    
     resources :users, only: [:show, :edit, :update ] do
       resource :relationships, only: [:create, :destroy]
         member do
           get :follows,:followers
         end
-      resources :reminders
       resource :user_reports, only: [:create]
       #以下、アドミンには必要なやつ 通報一覧　いらんかも。。
         #member do
           #get :reporting,:reported
         #end
     end
-
-
     resources :rooms, only: [:show, :create]
     put "/rooms/:id/hide" => "rooms#hide", as: 'rooms_hide'
   end

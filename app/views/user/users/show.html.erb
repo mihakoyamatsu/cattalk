@@ -14,7 +14,7 @@
 		  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
 		</div>
 		<div>
-		  <%= link_to 'にゃんこメモ', user_user_reminders_path(current_user.id), class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
+		  <%= link_to 'にゃんこメモ', user_reminders_path, class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
 		</div>
 		<div>
 		  <%= link_to "フォロー", follows_user_user_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
@@ -42,17 +42,18 @@
     <% else %>
       <%= link_to "フォローする", user_user_relationships_path(@user.id),method: :post %>
     <% end %>
-
-    <% if @isRoom == true %>
-      <%= link_to "チャットルームへ入る", user_room_path(@roomId) %>
-    <% else %>
-      <%= form_for @room, url: user_rooms_path do |f| %>
-        <%= f.hidden_field :name, :value => "ダイレクトメッセージ" %>
-        <!--%= f.fields_for @entry do |e| %-->
-          <%= f.hidden_field :user_id, :value => @user.id %>
-        <!--% end %-->
-        <%= f.submit "チャットを開始する" %>
-      <% end %>
+    <% if @user.followed_by?(current_user) and current_user.followed_by?(@user) %>
+		<% if @isRoom == true %>
+		  <%= link_to "チャットルームへ入る", user_room_path(@roomId) %>
+		<% else %>
+		  <%= form_for @room, url: user_rooms_path do |f| %>
+		    <%= f.hidden_field :name, :value => "ダイレクトメッセージ" %>
+		    <!--%= f.fields_for @entry do |e| %-->
+		      <%= f.hidden_field :user_id, :value => @user.id %>
+		    <!--% end %-->
+		    <%= f.submit "チャットを開始する" %>
+		  <% end %>
+		<% end %>
     <% end %>
 <% end %>
 

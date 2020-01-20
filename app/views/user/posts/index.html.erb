@@ -13,8 +13,11 @@
               <% post.post_images.each do |post_image| %>
                 <td><%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %> </td>
               <% end %>
-            <td><%= link_to "#{post.comments.count} コメント", user_post_path(post.id) %><%= link_to "#{post.favorites.count}いいね！", user_post_path(post.id) %></td>
+            <td><%= "#{post.comments.count} コメント" %><%=  "#{post.favorites.count}いいね！" %></td>
           </tr>
+            <div class="post-favorite-<%= post.id %>">
+            <td><%= render 'user/favorites/favorite', post: post %></td>
+            </div>
           <% end %>
     </tbody>
   </table>

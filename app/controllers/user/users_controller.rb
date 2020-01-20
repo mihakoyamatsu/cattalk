@@ -16,10 +16,10 @@ class User::UsersController < ApplicationController
           end
         end
       end
-    unless @isRoom
-        @room = Room.new
-        @entry = Entry.new
-    end
+      unless @isRoom
+          @room = Room.new
+          @entry = Entry.new
+      end
     end
     #@roomId = (@user.entries.pluck(:room_id) & current_user.entries.pluck(:room_id)).first
     #@room, @entry = Room.new, Entry.new unless @roomId
@@ -49,22 +49,6 @@ class User::UsersController < ApplicationController
 
   def followers
     @user = User.find(params[:id])
-    @currentUserEntry = Entry.where(user_id: current_user.id)
-    @userEntry = Entry.where(user_id: @user.id)
-    unless @user.id == current_user.id
-      @currentUserEntry.each do |currentuser|
-        @userEntry.each do |user|
-          if currentuser.room_id == user.room_id then
-            @isRoom = true
-            @roomId = currentuser.room_id
-          end
-        end
-      end
-    unless @isRoom
-        @room = Room.new
-        @entry = Entry.new
-    end
-    end
   end
 
   private

@@ -1,4 +1,3 @@
-
 <% content_for :mypage do %>
   <nav class="nav navbar-nav navbar-left">
     <a href="/" class="btn-circle-fishy">cattalk</a>
@@ -29,19 +28,7 @@
 	</div>
 <% end %>
 
-<% if @favorites.present? %>
-	<% @favorites.each do |favorite| %>
-	<% post = Post.find_by(id: favorite.post_id) %>
-	  <tr>
-	  	<td><%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %> </td>
-	    <td><%= link_to post.user.name, user_user_path(post.user.id) %></td>
-	    <td><%= link_to post.body, user_post_path(post.id) %></td>
-	      <% post.post_images.each do |post_image| %>
-	        <td><%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %> </td>
-	      <% end %>
-	    <td><%= link_to "#{post.comments.count} コメント", user_post_path(post.id) %><%= link_to "#{post.favorites.count}いいね！", user_post_path(post.id) %></td>
-	  </tr>
-	<% end %>
-<% else %>
-    <p>現在いいねしている投稿はありません。</p>
-<% end %>
+<p>日付</p><%= @reminder.date %>
+<p>件名</p><%= @reminder.title %>
+<%= @reminder.note.html_safe %>
+<%= link_to '一覧へ' ,user_reminders_path ,class: "btn-link"%>

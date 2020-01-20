@@ -1,23 +1,50 @@
+
+<% content_for :mypage do %>
+  <nav class="nav navbar-nav navbar-left">
+    <a href="/" class="btn-circle-fishy">cattalk</a>
+  </nav>
+	<div class="nav navbar-right">
+		<div>
+		  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to 'ねこ新規登録', new_user_cat_path(current_user.id), class: "btn-dark", style: "margin-left: 20px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to 'にゃんこメモ', user_reminders_path, class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to "フォロー", follows_user_user_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<div>
+		   <%= link_to 'フォロワー', followers_user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
+		</div>
+		<br>
+		  <p class="navbar-text navbar-right">
+		    <%= current_user.name %>さんのマイページです。
+		  </p>
+	</div>
+<% end %>
+
 <h1>フォロー一覧</h1>
 
-<% @user.followings.each do |user| %>
+<% @user.followers.each do |user| %>
   <hr>
 	<h4>プロフィール</h4>
-	<p>プロフィール画像</p><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
-	<p>アカウント名</p><%= user.name %>
+	<p>プロフィール画像</p><p>アカウント名</p>
+	<%= link_to (user_user_path(user.id)) do %>
+	  <%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+	  <%= user.name %>
+	<% end %>
 	<p>メールアドレス</p><%= user.email %>
 	<p>都道府県</p><%= user.prefectures %>
 	<% if current_user != user %>
 	    <!--%= link_to "通報する", user_user_user_reports_path(@user.id),method: :post %-->
-	    <% if user.followed_by?(current_user) %>
-	      <%= link_to "フォロー中", user_user_relationships_path(user.id),method: :delete %>
-
-
-
-
-	      
-	    <% else %>
-	      <%= link_to "フォローする", user_user_relationships_path(user.id),method: :post %>
-	    <% end %>
+	  <%= link_to "フォロー中", user_user_relationships_path(user.id),method: :delete %>
+	<% else %>
+	  <%= link_to "フォローする", user_user_relationships_path(user.id),method: :post %>
 	<% end %>
 <% end %>

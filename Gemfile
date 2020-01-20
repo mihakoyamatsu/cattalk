@@ -76,6 +76,7 @@ gem "refile-mini_magick"
 gem 'kaminari','~> 1.1.1'
 gem 'ransack'
 gem 'pry-rails'
+gem 'summernote-rails', '~> 0.8.12.0'
 
 group :production do
   gem 'mysql2'
