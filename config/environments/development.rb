@@ -60,4 +60,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
 
-BetterErrors::Middleware.allow_ip! "0.0.0.0/0"    #この一行を追加
+BetterErrors::Middleware.allow_ip! "0.0.0.0/0"    #error画面用gemのためこの一行を追加

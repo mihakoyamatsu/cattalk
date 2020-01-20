@@ -1,6 +1,7 @@
 class Admin::UserReportsController < ApplicationController
   def index
-  	@users = UserReport.all
+  	@reports = UserReport.all
+  	#@users = User.where(id:@reports.reported_user_id)
   end
 
   def show

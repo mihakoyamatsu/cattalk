@@ -1,13 +1,20 @@
-<section class="show-container">
+<section class="container">
   <tbody>
     <table class="table table-responsive">
-   
       <h1>投稿詳細</h1>
       <tr>
       	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %> </td>
         <td><%= link_to @post.user.name, user_user_path(@post.user.id) %></td>
         <td><%= @post.body %></td>
       </tr>
+    </table>
+
+    <table class="table table-responsive">
+        <h4>この投稿を通報する</h4>
+        <%= form_for @report, url:user_post_post_reports_path(@post) do |f| %>
+        <%= f.text_area :report_message, placeholder: "通報内容を詳しくご記入ください。" %>
+        <%= f.submit "送信する",class: "btn btn-sm btn-primary mt-20 pull-right" %>
+        <% end %>
     </table>
 
     <% if @post.favorited_by?(current_user) %>
@@ -29,8 +36,6 @@
         <tr>
           <%= @post.comments.count %>件コメント
         </tr>
-
-
         <% @post.comments.each do |comment| %>
         <tr>
           <td>
@@ -52,15 +57,13 @@
         </tr>
         <% end %>
       </table>
-
-
       <table class="table table-responsive">
-        <h3>コメント</h3>
+        <h4>コメント</h4>
         <%= form_for @comment, url: user_post_comments_path(@post) do |f| %>
-        <%= f.text_field :comment, rows:'5',class: "col-xs-12", placeholder: "コメントをここに" %>
+        <%= f.text_field :comment,class: "col-xs-12", placeholder: "コメントをここに" %>
         <%= f.submit "送信する", class: "btn btn-sm btn-primary mt-20 pull-right" %>
         <% end %>
       </table>
-
+      
   </tbody>
 </section>

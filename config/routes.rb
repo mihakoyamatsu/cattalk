@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :index, :new, :show] do
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create]
-      resources :post_reports, only: [:create]
+      resources :post_reports, only: [:create, :new]
     end
     put "/posts/:id/hide" => "posts#hide", as: 'posts_hide'
     put "/comments/:id/hide" => "comments#hide", as: 'comments_hide'
