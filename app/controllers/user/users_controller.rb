@@ -1,6 +1,7 @@
 class User::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    @cat = Cat.new
     if @user.cats.exists?
     @cats = Cat.where(user_id:current_user.id)
     end
@@ -49,6 +50,14 @@ class User::UsersController < ApplicationController
 
   def followers
     @user = User.find(params[:id])
+  end
+
+  def hide
+    @user = User.find(params[:id])
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会しました。"
+    redirect_to root_path
   end
 
   private

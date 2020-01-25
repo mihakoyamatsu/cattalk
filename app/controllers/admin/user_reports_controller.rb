@@ -6,4 +6,10 @@ class Admin::UserReportsController < ApplicationController
 
   def show
   end
+
+  def hide
+  	@report = UserReport.find(params[:id])
+  	@report.update(is_deleted: true)
+  	redirect_to admin_user_reports_path
+  end
 end

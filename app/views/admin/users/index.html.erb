@@ -1,8 +1,26 @@
-
-<% @users.each do |user| %>
-  <h4>プロフィール</h4>
-  <p>プロフィール画像</p><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
-  <p>アカウント名</p><%= user.name %>
-  <p>メールアドレス</p><%= user.email %>
-  <p>都道府県</p><%= user.prefectures %>
-<% end %>
+<div class="container">
+	<div class="row">
+		<div class="col-8 offset-2">
+			<h3>ユーザー一覧(<%= @users.count %>), 退会ユーザー(<%= @users.where(is_deleted: true).count %>)</h3>
+　　　　　	<table class="table table-striped">
+	　　　　　　　<th>プロフィール画像</th>
+				<th>アカウント名</th>
+				<th>メールアドレス</th>
+				<th>都道府県</th>
+					<% @users.each do |user| %>
+						<tr>
+							<td><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
+							<td><%= user.name %></td>
+							<td><%= user.email %></td>
+							<td><%= user.prefectures %></td>
+							 	<% if user.is_deleted == nil %>
+									<td><%= link_to "強制退会", admin_users_hide_path(user.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %></td>
+								<% else %>
+									<td>退会済みユーザーです</td>
+								<% end %>
+						</tr>
+					<% end %>
+			</table>
+		</div>
+	</div>
+</div>

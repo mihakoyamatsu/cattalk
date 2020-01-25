@@ -12,16 +12,20 @@ class User::PostsController < ApplicationController
   end
 
   def index
-      @posts = Post.all
+      @posts = Post.where(is_deleted: nil)
   end
 
   def show
   	  @post = Post.find(params[:id])
       @comment = Comment.new
       @favorite = Favorite.new
-      @report = PostReport.new
   end
 
+  def hide
+      @post = Post.find(params[:id])
+      @post.update(is_deleted: true)
+      redirect_to root_path
+  end
   private
 
   def post_params

@@ -8,11 +8,17 @@ class User::CommentsController < ApplicationController
   end
 
   def correct_user
-      @post = Post.find(params[:post_id])
-      comment = Comment.find(params[:id])
-      unless comment.user.id == current_user.id
+    @post = Post.find(params[:post_id])
+    comment = Comment.find(params[:id])
+    unless comment.user.id == current_user.id
         redirect_to user_post_path(@post)
-      end
+    end
+  end
+
+  def hide
+    @comment = Comment.find(params[:id])
+    @comment.update(is_deleted: true)
+    redirect_to user_post_path(@comment.post.id)
   end
 
   private

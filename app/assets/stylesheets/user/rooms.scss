@@ -2,8 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.chat-body {
+	background-image: url(image-path("chatroom-background.jpg"));
+}
+
 .chat_room {
-	border: solid 1px black;
+	border: solid 3px;
+	border-color: #fffacd;
+    border-radius: 40px;
 	margin: 60px auto;
     padding: 32px;
+    background-color: #db7093;
 }

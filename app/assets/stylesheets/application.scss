@@ -13,11 +13,30 @@
  *= require_tree .
  *= require_self
  */
- 
+
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import "summernote-bs4";
 
-.nav {
+.head_nav {
 	display: flex;
+}
+
+.index_background {
+	background-image: url(image-path("2.jpg"));
+    background-size: cover;
+    background-position: center;
+}
+footer {
+	background-color: black;
+}
+header {
+	background-color: black;
+}
+body {
+	background-color: #F2F2F2;
+}
+
+.navbar-text {
+	color: white;
 }

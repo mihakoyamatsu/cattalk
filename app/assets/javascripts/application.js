@@ -21,6 +21,7 @@
 //= require bootstrap-sprockets
 //= require summernote/summernote-bs4.min
 //= require summernote-init
+//= require data-confirm-modal
 //= require cocoon
 //= require_tree .
 

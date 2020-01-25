@@ -35,7 +35,7 @@
 	<p>猫の名前</p><%= f.text_field :name %>
 	<p>性別</p><%= f.text_field :sex %>
 	<p>種類</p><%= f.text_field :breed %>
-	<p>年齢</p><%= f.text_field :age %>
+	<p>年齢</p><!--%= f.text_field :age %--><%= f.select :age, Cat.ages.keys.to_a, {prompt: '選択してください'}, class: 'form-control btn btn-info' %>
 	<p>体重</p><%= f.text_field :weight %>
 	<p>血液型</p><%= f.text_field :blood_type %>
 	<p>飼い始めた経緯</p><%= f.text_field :story %>

@@ -97,6 +97,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.5)
+    data-confirm-modal (1.6.2)
+      railties (>= 3.0)
     debug_inspector (0.0.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
@@ -308,6 +310,7 @@ DEPENDENCIES
   chromedriver-helper
   cocoon
   coffee-rails (~> 4.2)
+  data-confirm-modal
   devise
   jbuilder (~> 2.5)
   jquery-rails

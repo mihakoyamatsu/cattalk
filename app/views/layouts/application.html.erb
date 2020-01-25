@@ -9,7 +9,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/a9f880f2b4.js" crossorigin="anonymous"></script>
   </head>
-
   <body>
     <header class="navbar nav-head", style="padding: 0 50px; margin-bottom: 0px;">
       <% if yield(:mypage).empty? %>
@@ -30,11 +29,11 @@
             </p>
 
           <% elsif user_signed_in? %>
-            <nav class="nav navbar-nav navbar-left">
+            <nav>
               <a href="/" class="btn-circle-fishy">cattalk</a>
             </nav>
             <nav>
-              <div class="nav navbar-nav navbar-right">
+              <div class="head_nav">
                 <div><%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
                 <div><%= link_to 'マイページ', user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
                 <div><%= link_to '供血希望にゃんこ', user_cats_path(current_user.id), class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %></div>
@@ -47,7 +46,7 @@
               </div>
             </nav>
           <% else %>
-            <nav class="nav navbar-nav navbar-left">
+            <nav class="navbar-left">
               <a href="/" class="btn-circle-fishy">cattalk</a>
             </nav>
             <nav>
@@ -72,11 +71,12 @@
       <% end %>
 
     </header>
+    <%= yield %>
     <footer class="footer navbar-inverse", style="height: 80px; line-height: 80px; font-size: 20px;">
       <div class="container">
         <p class="nav navbar-nav navbar-right", style="color:white">© All rights reserved by cattalk.Inc.</p>
       </div>
     </footer>
-    <%= yield %>
+    
   </body>
 </html>

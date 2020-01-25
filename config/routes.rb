@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   root 'user/posts#index'
-
+ 
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
     passwords: 'admins/passwords',
@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     put "/posts/:id/hide" => "posts#hide", as: 'posts_hide'
     put "/comments/:id/hide" => "comments#hide", as: 'comments_hide'
     get "/users/favorites" => "users#favorites", as: 'favorites'
+    put "/users/:id/hide" => "users#hide", as: 'users_hide'
     #get "/users/user/report/new" => "users#new"
     resources :cats
     resources :reminders
@@ -53,7 +54,7 @@ Rails.application.routes.draw do
           #get :reporting,:reported
         #end
     end
-    resources :rooms, only: [:show, :create]
+    resources :rooms, only: [:show, :create, :index]
     put "/rooms/:id/hide" => "rooms#hide", as: 'rooms_hide'
   end
 

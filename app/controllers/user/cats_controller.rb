@@ -15,7 +15,7 @@ class User::CatsController < ApplicationController
   end
 
   def edit
-  	@cat = Cat.find_by(params[user_id: current_user.id])
+  	@cat = Cat.find(params[:id])
   end
 
   def update

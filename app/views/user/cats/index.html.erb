@@ -1,4 +1,4 @@
-<div class= "container">
+<div class= "container"> 
 	<% @users.each do |user| %>
 	<div class = "user-profile">
 	    <img><%= attachment_image_tag user, :image, :fill, 50, 50, format:'jpeg', fallback:"no_image.jpg" %></img>

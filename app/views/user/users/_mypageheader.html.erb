@@ -4,6 +4,12 @@
   </nav>
 	<div class="nav navbar-right">
 		<div>
+		  <%= link_to 'マイページTOP', user_user_path(@user.id), class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
+		</div>
+		<div>
+		  <%= link_to 'DM', user_rooms_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
+		</div>
+		<div>
 		  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
 		</div>
 		<div>
@@ -16,22 +22,14 @@
 		  <%= link_to 'にゃんこメモ', user_reminders_path, class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
 		</div>
 		<div>
-		  <%= link_to "フォロー", follows_user_user_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
+		  <%= link_to "フォロー", follows_user_user_path(@user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
 		</div>
 		<div>
-		   <%= link_to 'フォロワー', followers_user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
+		   <%= link_to 'フォロワー', followers_user_user_path(@user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
 		</div>
 		<br>
 		  <p class="navbar-text navbar-right">
-		    <%= current_user.name %>さんのマイページです。
+		    <%= @user.name %>さんのマイページです。
 		  </p>
 	</div>
 <% end %>
-
-<% @reminders.each do |reminder| %>
-<p>日付</p><%= reminder.date %>
-<p>件名</p><%= reminder.title %>
-<%= reminder.note.html_safe %>
-<%= link_to '詳細へ', user_reminder_path(reminder), class: "btn-link" %>
-<% end %>
- 

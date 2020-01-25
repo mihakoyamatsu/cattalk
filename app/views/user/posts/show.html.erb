@@ -7,36 +7,25 @@
         <td><%= link_to @post.user.name, user_user_path(@post.user.id) %></td>
         <td><%= @post.body %></td>
       </tr>
+      <tr>
+        <div class="post-favorite-<%= @post.id %>">
+          <td><%= render 'user/favorites/favorite', post: @post %></td>
+        </div>
+          <td>
+            <i class="fa fa-commenting-o" aria-hidden="true"><%= "#{@post.comments.count}" %></i></td>
+          <td><%= link_to "通報",new_user_post_post_report_path(@post),class: "far fa-flag" %>
+              <%= link_to user_posts_hide_path(@post), method: :put do %>
+                <i class="fas fa-trash-alt" style= "margin: left;"></i>
+              <% end %>
+          </td>
+      </tr>
     </table>
 
-    <table class="table table-responsive">
-        <h4>この投稿を通報する</h4>
-        <%= form_for @report, url:user_post_post_reports_path(@post) do |f| %>
-        <%= f.text_area :report_message, placeholder: "通報内容を詳しくご記入ください。" %>
-        <%= f.submit "送信する",class: "btn btn-sm btn-primary mt-20 pull-right" %>
-        <% end %>
-    </table>
 
-    <% if @post.favorited_by?(current_user) %>
-          <div class="right" >
-            <%= link_to user_post_favorites_path(@post),method: :delete do %>
-              <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-              <%= @post.favorites.count %>いいね！
-            <% end %>
-          </div>
-    <% else %>
-          <div class="right" >
-            <%= link_to user_post_favorites_path(@post), method: :post do %>
-              <i class="fa fa-heart-o" aria-hidden="true"></i>
-              <%= @post.favorites.count %>いいね！
-            <% end %>
-          </div>
-    <% end %>
     <table class="table table-responsive">
-        <tr>
-          <%= @post.comments.count %>件コメント
-        </tr>
-        <% @post.comments.each do |comment| %>
+
+      <% @post.comments.each do |comment| %>
+        <% if comment.is_deleted == nil %>
         <tr>
           <td>
             <br>
@@ -50,13 +39,15 @@
             </br>
             <%= comment.comment %>
           </td>
-          <!--td-->
-            <!--% if comment.user == current_user %-->
-            <!--%= link_to "削除", user_post_comment_path(@post.id,comment.id), method: :delete, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-link pull-right" %--><!--% end %-->
-          <!--/td-->
+          <td>
+            <% if comment.user == current_user %>
+            <%= link_to "削除", user_comments_hide_path(comment.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-link pull-right" %>
+            <% end %>
+          </td>
         </tr>
         <% end %>
-      </table>
+      <% end %>
+    </table>
       <table class="table table-responsive">
         <h4>コメント</h4>
         <%= form_for @comment, url: user_post_comments_path(@post) do |f| %>

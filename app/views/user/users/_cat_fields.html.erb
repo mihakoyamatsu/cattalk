@@ -6,7 +6,7 @@
 		<span>猫の名前<%= f.text_field :name %></span>
 		<span>性別<%= f.select :sex, Cat.sexes.keys.to_a, {prompt: '選択してください'}, class: 'form-control btn btn-info' %></span>
 		<span>種類<%= f.text_field :breed %></span><br>
-		<span>年齢<%= f.text_field :age %></span>
+		<span>年齢<%= f.select :age, [["1ヶ月未満","0"],["1ヶ月","1"]] %></span>
 		<span>体重<%= f.text_field :weight %></span>
 		<span>血液型<%= f.text_field :blood_type %></span>
 		<span>飼い始めた経緯<%= f.text_field :story %></span>

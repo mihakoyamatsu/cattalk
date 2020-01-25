@@ -15,7 +15,8 @@
                 <td><%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %> </td>
               <% end %>
             <td><%= link_to "#{post.comments.count} コメント", user_post_path(post.id) %><%= link_to "#{post.favorites.count}いいね！", user_post_path(post.id) %></td>
-            <td><h4>通報内容</h4><%= report.report_message %></td>
+            <td><h6>通報内容</h6><%= report.report_message %></td>
+            <td><%= link_to "不適切な投稿として削除する", admin_post_reports_hide_path(report.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %></td>
           </tr>
           <% end %>
     </tbody>

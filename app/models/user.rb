@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   has_many :cats, dependent: :destroy
-  accepts_nested_attributes_for :cats, allow_destroy: true
+  #accepts_nested_attributes_for :cats, allow_destroy: true
 
   has_many :reporting_relationships, foreign_key: "report_user_id",class_name: "UserReport"
   has_many :reported_users, through: :reporting_relationships, source: :reported_user
@@ -47,4 +47,8 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :post_reports, dependent: :destroy
+
+  enum prefectures: {
+        大阪府:0,京都府:1,滋賀県:2,奈良県:3,三重県:4,兵庫県:5,和歌山県:6
+      }
 end
