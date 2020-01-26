@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_105631) do
+ActiveRecord::Schema.define(version: 2020_01_25_153243) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 2020_01_20_105631) do
     t.string "image_id"
     t.string "name"
     t.integer "sex"
-    t.integer "age"
-    t.integer "breed"
+    t.string "age"
+    t.string "breed"
     t.string "weight"
     t.integer "blood_type"
     t.text "story"
@@ -46,13 +46,15 @@ ActiveRecord::Schema.define(version: 2020_01_20_105631) do
     t.integer "condition_sex"
     t.integer "condition_breed"
     t.integer "condition_age"
-    t.integer "condition_blood_type"
+    t.string "condition_blood_type"
     t.string "condition_weight"
     t.string "term"
     t.text "note"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "date"
+    t.string "area"
   end
 
   create_table "comments", force: :cascade do |t|

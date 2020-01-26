@@ -13,6 +13,8 @@ class User::PostsController < ApplicationController
 
   def index
       @posts = Post.where(is_deleted: nil)
+      #@user = current_user.id
+      #@image = @user.image
   end
 
   def show

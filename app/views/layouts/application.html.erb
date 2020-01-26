@@ -36,8 +36,8 @@
               <div class="head_nav">
                 <div><%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
                 <div><%= link_to 'マイページ', user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
-                <div><%= link_to '供血希望にゃんこ', user_cats_path(current_user.id), class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %></div>
-                <div><%= link_to "輸血希望にゃんこ", user_cats_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to '供血希望にゃんこ', user_cats_path(sort: 0), class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to "輸血希望にゃんこ", user_cats_path(sort: 1), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %></div>
                 <div><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn-secondary", style: "margin-left: 5px; margin-top: 33px;" %></div>
                 <br>
                   <p class="navbar-text navbar-right">

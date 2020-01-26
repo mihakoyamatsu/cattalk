@@ -16,7 +16,7 @@ class Cat < ApplicationRecord
 	#}
 
 	enum blood_type: {
-		A型:0, B型:1, AB型:2
+		A型:0, B型:1, AB型:2,不明:3,その他:4
 	}
 
 	enum purpose:{

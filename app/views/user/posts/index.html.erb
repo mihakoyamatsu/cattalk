@@ -1,43 +1,67 @@
 <div class="index_background">
-  <section class="container">
-    <div class="row">
-      <div class="col-8 offset-4 index-box">
-          <tbody>
-            <section class="text-left">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="sidebar">
+                    <% if user_signed_in? %>
+                        <h3>プロフィール</h3>
+                            <table class="table table-responsive">
+                                <tr>
+                                    <td>プロフィール画像</td>
+                                    <td><%= attachment_image_tag current_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
+                                </tr>
+                                <tr>
+                                    <td>アカウント名</td><td><%= current_user.name %></td>
+                                </tr>
+                                <tr>
+                                    <td>メールアドレス</td><td><%= current_user.email %></td>
+                                </tr>
+                                <tr>
+                                    <td>お住まい地域</td><td><%= current_user.prefectures %></td>
+                                </tr>
+                                <tr>
+                                    <td>お住まい市町村</td><td><%= current_user.cities %></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">自己紹介文<br><%= current_user.introduce %></td>
+                                </tr>
+                            </table>
+                    <% else %>
+                        <h3>サインイン後に、ユーザー情報が表示できます。</h3>
+                    <% end %>
+                </div>
+            </div>
+            <div class="col-8 index-box">
                 <h1>投稿一覧</h1>
-                <% @posts.each do |post| %>
-                  <table class="table table-responsive" ~~~ style="table-layout:fixed;width:100%;">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %><br>
-                          <%= link_to post.user.name, user_user_path(post.user.id) %>
-                        </td>
-                        <td>
-                          <%= link_to post.body, user_post_path(post.id) %>
-                        <br>
-                          <% post.post_images.each do |post_image| %>
-                          <%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
-                          <% end %>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td><%= post.created_at.strftime('%Y/%m/%d') %>
-                            <%= link_to user_post_path(post.id) do %>
-                            <i class="fa fa-commenting-o" aria-hidden="true"><%= "#{post.comments.count} " %></i>
-                            <% end %>
-                            <i class="post-favorite-<%= post.id %>">
-                            <%= render 'user/favorites/favorite', post: post %>
-                            </i>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                <% end %>
-            </section>
-          </tbody>
-      </div>
+                    <table>
+                        <% @posts.each do |post| %>
+                                <tr>
+                                    <td>
+                                        <%= attachment_image_tag post.user, :image, :fill, 60, 60, format:'jpeg', fallback: "no_image.jpeg", size:'50×50',class:"rounded-circle" %><br>
+                                        <%= link_to post.user.name, user_user_path(post.user.id) %>
+                                    </td>
+                                    <td class="post-body">
+                                        <%= link_to post.body, user_post_path(post.id) %>
+                                    <br>
+                                        <% post.post_images.each do |post_image| %>
+                                            <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                        <% end %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <%= post.created_at.strftime('%Y/%m/%d') %>
+                                        <%= link_to user_post_path(post.id) do %>
+                                            <i class="fa fa-commenting-o" aria-hidden="true"><%= "#{post.comments.count} " %></i>
+                                        <% end %>
+                                        <i class="post-favorite-<%= post.id %>">
+                                            <%= render 'user/favorites/favorite', post: post %>
+                                        </i>
+                                    </td>
+                                </tr>
+                        <% end %>
+                    </table>
+              </div>
+        </div>
     </div>
-  </section>
 </div>

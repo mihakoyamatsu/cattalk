@@ -1,19 +1,39 @@
 
 <% render 'mypageheader' %>
 
-<% if @favorites.present? %>
-	<% @favorites.each do |favorite| %>
-	<% post = Post.find_by(id: favorite.post_id) %>
-	  <tr>
-	  	<td><%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %> </td>
-	    <td><%= link_to post.user.name, user_user_path(post.user.id) %></td>
-	    <td><%= link_to post.body, user_post_path(post.id) %></td>
-	      <% post.post_images.each do |post_image| %>
-	        <td><%= attachment_image_tag post_image, :image, :fill, 50, 50, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %> </td>
-	      <% end %>
-	    <td><%= link_to "#{post.comments.count} コメント", user_post_path(post.id) %><%= link_to "#{post.favorites.count}いいね！", user_post_path(post.id) %></td>
-	  </tr>
-	<% end %>
-<% else %>
-    <p>現在いいねしている投稿はありません。</p>
-<% end %>
+<div class="col-8 index-box">
+    <h1>投稿一覧</h1>
+        <% if @favorites.present? %>
+        	<table>
+				<% @favorites.each do |favorite| %>
+					<% post = Post.find_by(id: favorite.post_id) %>
+						<tr>
+                            <td>
+                                <%= attachment_image_tag post.user, :image, :fill, 60, 60, format:'jpeg', fallback: "no_image.jpeg", size:'50×50',class:"rounded-circle" %><br>
+                                <%= link_to post.user.name, user_user_path(post.user.id) %>
+                            </td>
+                            <td class="post-body">
+                                <%= link_to post.body, user_post_path(post.id) %>
+                            <br>
+                                <% post.post_images.each do |post_image| %>
+                                    <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <%= post.created_at.strftime('%Y/%m/%d') %>
+                                <%= link_to user_post_path(post.id) do %>
+                                    <i class="fa fa-commenting-o" aria-hidden="true"><%= "#{post.comments.count} " %></i>
+                                <% end %>
+                                <i class="post-favorite-<%= post.id %>">
+                                    <%= render 'user/favorites/favorite', post: post %>
+                                </i>
+                            </td>
+                        </tr>
+                <% end %>
+            </table>
+		<% else %>
+			<p>現在いいねしている投稿はありません。</p>
+		<% end %>
+</div>

@@ -1,38 +1,101 @@
-<div class= "container"> 
+<div class= "container">
 	<% @users.each do |user| %>
-	<div class = "user-profile">
-	    <img><%= attachment_image_tag user, :image, :fill, 50, 50, format:'jpeg', fallback:"no_image.jpg" %></img>
-		<span>飼い主さん<%= link_to user.name, user_user_path(user.id) %></span>
-		<span>お住まい地域<%= user.prefectures %><%= user.cities %></span>
-		<% user.cats.each.with_index(1) do |cat, i| %>
-		<% if cat.sex == "オス" and cat.sex =="オス去勢済み" %>
-		  <div class = "cat-profile_mens">
-			<p>にゃんこ<%= i %></p>
-		    <p>おなまえ:<%= cat.name %></p>
-			<p>血液型<%= cat.condition_blood_type %></p>
-			<p>ステータス<%= cat.status %></p>
-			<p>種類<%= cat.condition_breed %></p>
-			<p>期間<%= cat.term %></p>
-			<div class ="note">
-			  <span class="note-title">note</span>
-			  <p><%= cat.note %></p>
-		    </div>
-          </div>
-        <% else %>
-          <div class = "cat-profile_ledis">
-			<p>にゃんこ<%= i %></p>
-		    <p>おなまえ:<%= cat.name %></p>
-			<p>血液型<%= cat.condition_blood_type %></p>
-			<p>ステータス<%= cat.status %></p>
-			<p>種類<%= cat.condition_breed %></p>
-			<p>期間<%= cat.term %></p>
-			<div class ="note">
-			  <span class="note-title">note</span>
-			  <p><%= cat.note %></p>
-		    </div>
-          </div>
-          <% end %>
+		<% if params[:sort] == "0" %>
+			<% @cats = user.cats.where(purpose: 0) %>
+		<% elsif params[:sort] == "1" %>
+			<% @cats = user.cats.where(purpose: 1) %>
+		<% else %>
+			<% @cats = user.cats %>
 		<% end %>
-	</div>
+		<% if @cats.exists? %>
+
+			<div class = "user-profile">
+				<table class="table table-responsive">
+					<tr>
+						<td>プロフィール画像</td>
+						<td>アカウント名</td>
+						<td><%= link_to user.name, user_user_path(user.id) %></td>
+						<td>都道府県</td>
+						<td><%= user.prefectures %></td>
+						<td>地域</td>
+						<td><%= user.cities %></td>
+					</tr>
+					<tr>
+						<td rowspan="2"><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
+						<td>メールアドレス</td>
+						<td><%= user.email %></td>
+					</tr>
+					<tr>
+						<td>自己紹介文</td>
+						<td colspan="6"><%= user.introduce %></td>
+					</tr>
+				</table>
+				<% @cats.each.with_index(1) do |cat, i| %>
+					<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>
+					  	<div class = "cat-profile_mens">
+							<table class="table table-responsive">
+								<tr>
+									<td>NO.<%= i %></td>
+								</tr>
+								<tr>
+									<td>お名前</td>
+									<td><%= cat.name %></td>
+									<td>種類</td>
+									<td><%= cat.breed %></td>
+								</tr>
+								<tr>
+									<td>血液型</td>
+									<td><%= cat.blood_type %></td>
+								</tr>
+								<tr>
+									<td>ステータス</td>
+									<td><%= cat.status %></td>
+								</tr>
+								<tr>
+									<td>期間</td>
+									<td><%= cat.term %></td>
+								</tr>
+								<tr>
+									<td colspan="3">note<br><%= cat.note %></td>
+								</tr>
+							</table>
+				      	</div>
+				    <% else %>
+				      	<div class = "cat-profile_ledis">
+							<table class="table table-responsive">
+								<tr>
+									<td>NO.<%= i %></td>
+								</tr>
+								<tr>
+									<td>お名前</td>
+									<td><%= cat.name %></td>
+								</tr>
+								<tr>
+									<td>血液型</td>
+									<td><%= cat.blood_type %></td>
+								</tr>
+								<tr>
+									<td>ステータス</td>
+									<td><%= cat.status %></td>
+								</tr>
+								<tr>
+									<td>種類</td>
+									<td><%= cat.breed %></td>
+								</tr>
+								<tr>
+									<td>期間</td>
+									<td><%= cat.term %></td>
+								</tr>
+								<tr>
+									<td>note</td>
+									<td><%= cat.note %></td>
+								</tr>
+							</table>
+				      	</div>
+				    <% end %>
+				<% end %>
+			</div>
+		<% else %> <!-- 10行目のif, @catsがなかった時 -->
+		<% end %> <!-- 10行目のif -->
     <% end %>
 </div>

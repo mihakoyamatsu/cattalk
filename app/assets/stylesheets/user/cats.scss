@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .user-profile{
-	padding: 2em 2em;
+	padding: 2em 1em;
     margin: 2em 0;
     color: #565656;
     background: #ffffc1;
@@ -27,7 +27,12 @@
     border: dashed 2px #ffc3c3;
     border-radius: 8px;
 }
-
+.cat-images{
+    overflow-wrap: break-word;
+}
+.cat_image {
+    padding-top: 5px;
+}
 .note{
     position: relative;
     margin: 2em 0;
