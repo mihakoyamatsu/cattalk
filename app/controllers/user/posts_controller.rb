@@ -1,7 +1,6 @@
 class User::PostsController < ApplicationController
   def new
-      @post = Post.new
-      @post.post_images.build
+      
   end
 
   def create
@@ -12,8 +11,11 @@ class User::PostsController < ApplicationController
   end
 
   def index
-      @posts = Post.all
-
+      @posts = Post.where(is_deleted: nil)
+      #@user = current_user.id
+      #@image = @user.image
+      @post = Post.new
+      @post.post_images.build
   end
 
   def show
@@ -22,6 +24,11 @@ class User::PostsController < ApplicationController
       @favorite = Favorite.new
   end
 
+  def hide
+      @post = Post.find(params[:id])
+      @post.update(is_deleted: true)
+      redirect_to root_path
+  end
   private
 
   def post_params

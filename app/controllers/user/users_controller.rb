@@ -1,7 +1,29 @@
 class User::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    @cat = Cat.new
+    if @user.cats.exists?
     @cats = Cat.where(user_id:current_user.id)
+    end
+    @report = current_user.reporting_relationships.build(reported_user_id: @user.id)
+    @currentUserEntry = Entry.where(user_id: current_user.id)
+    @userEntry = Entry.where(user_id: @user.id)
+    unless @user.id == current_user.id
+      @currentUserEntry.each do |currentuser|
+        @userEntry.each do |user|
+          if currentuser.room_id == user.room_id then
+            @isRoom = true
+            @roomId = currentuser.room_id
+          end
+        end
+      end
+      unless @isRoom
+          @room = Room.new
+          @entry = Entry.new
+      end
+    end
+    #@roomId = (@user.entries.pluck(:room_id) & current_user.entries.pluck(:room_id)).first
+    #@room, @entry = Room.new, Entry.new unless @roomId
   end
 
   def edit
@@ -14,11 +36,28 @@ class User::UsersController < ApplicationController
   def update
   	@user = User.find(params[:id])
   	@user.update(user_params)
-    binding.pry
-  	redirect_to edit_user_user_path(current_user.id)
+  	redirect_to user_user_path(current_user.id)
   end
 
   def favorites
+    @favorites = Favorite.where(user_id:current_user.id)
+
+  end
+  
+  def follows
+    @user = User.find(params[:id])
+  end
+
+  def followers
+    @user = User.find(params[:id])
+  end
+
+  def hide
+    @user = User.find(params[:id])
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会しました。"
+    redirect_to root_path
   end
 
   private

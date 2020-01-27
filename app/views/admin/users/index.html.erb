@@ -1,2 +1,27 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-8 offset-2">
+			<h3>ユーザー一覧(<%= @users.count %>), 退会ユーザー(<%= @users.where(is_deleted: true).count %>)</h3>
+　　　　　	<table class="table table-striped">
+				<th>アカウント</th>
+				<th>メールアドレス</th>
+				<th>都道府県</th>
+					<% @users.each do |user| %>
+						<tr>
+							<td><%= link_to admin_user_path(user.id) do %>
+								<%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100",class: 'rounded-circle' %>
+								<%= user.name %></td>
+							<% end %>
+							<td><%= user.email %></td>
+							<td><%= user.prefectures %></td>
+							 	<% if user.is_deleted == nil %>
+									<td><%= link_to "強制退会", admin_users_hide_path(user.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %></td>
+								<% else %>
+									<td>退会済みユーザーです</td>
+								<% end %>
+						</tr>
+					<% end %>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,2 +1,36 @@
-<h1>Admin::UserReports#index</h1>
-<p>Find me in app/views/admin/user_reports/index.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-8 offset-2">
+        	<h2>通報されたユーザー一覧</h2>
+        		<table class="table table-striped">
+					<% if @reports.present? %>
+<!--% user = User.where(user_id:userreport.reported_user_id) %-->
+						<th>アカウント</th>
+						<th>メールアドレス</th>
+						<th>都道府県</th>
+						<th>通報内容</th>
+					    <% @reports.each do |report| %>
+							<tr>
+								<td><%= link_to admin_user_path(report.reported_user.id) do %>
+		  								<%= attachment_image_tag report.reported_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+		  								<%= report.reported_user.name %>
+	  								<% end %>
+	  							</td>
+								<td><%= report.reported_user.email %></td>
+								<td><%= report.reported_user.prefectures %></td>
+								<td><%= report.report_message %></td>
+									<% if report.is_deleted == nil %>
+										<td><%= link_to "通報の取り消し", admin_user_reports_hide_path(report.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-success pull-right" %></td>
+		   							<% else %>
+		   								<td>通報を取り消したユーザーです。</td>
+		   							<% end %>
+	  						</tr>
+	  					<% end %>
+	  				<% else %>
+  						<p>現在、通報されているユーザーはいません。</p>
+					<% end %>
+				</table>
+		</div>
+	</div>
+</div>
+

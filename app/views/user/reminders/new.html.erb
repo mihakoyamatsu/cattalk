@@ -1,2 +1,7 @@
-<h1>User::Reminders#new</h1>
-<p>Find me in app/views/user/reminders/new.html.erb</p>
+<h3>にゃんこメモ作成</h3>
+<%= form_for @reminder,url:user_reminders_path,method: :post do |f| %>
+    <p> 日付</p><%= f.date_field :date, placeholder: "2020/00/00" %>
+    <p>件名</p><%= f.text_field :title, placeholder: "件名なし" %>
+    <%= f.text_area :note, 'data-provider': :summernote %>
+    <%= f.submit '保存',class: "btn btn-base-1 mt-10 bg-warning" %>
+<% end %>

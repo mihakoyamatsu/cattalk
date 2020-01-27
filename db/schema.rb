@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_063924) do
+ActiveRecord::Schema.define(version: 2020_01_25_153243) do
 
   create_table "admins", force: :cascade do |t|
-    t.string "mail_address"
-    t.string "password"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "cat_images", force: :cascade do |t|
@@ -32,8 +37,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_063924) do
     t.string "image_id"
     t.string "name"
     t.integer "sex"
-    t.integer "age"
-    t.integer "breed"
+    t.string "age"
+    t.string "breed"
     t.string "weight"
     t.integer "blood_type"
     t.text "story"
@@ -41,13 +46,15 @@ ActiveRecord::Schema.define(version: 2020_01_16_063924) do
     t.integer "condition_sex"
     t.integer "condition_breed"
     t.integer "condition_age"
-    t.integer "condition_blood_type"
+    t.string "condition_blood_type"
     t.string "condition_weight"
     t.string "term"
     t.text "note"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "date"
+    t.string "area"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -59,18 +66,26 @@ ActiveRecord::Schema.define(version: 2020_01_16_063924) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "post_id"
+  create_table "direct_messages", force: :cascade do |t|
+    t.integer "room_id"
     t.integer "user_id"
+    t.string "body"
+    t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "messages", force: :cascade do |t|
+  create_table "entries", force: :cascade do |t|
     t.integer "room_id"
-    t.integer "chat_user_id"
-    t.string "body"
+    t.integer "user_id"
     t.boolean "is_deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -100,16 +115,24 @@ ActiveRecord::Schema.define(version: 2020_01_16_063924) do
     t.integer "user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "following_id"
+    t.integer "follower_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reminders", force: :cascade do |t|
     t.datetime "date"
     t.text "note"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "name"
     t.boolean "is_deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

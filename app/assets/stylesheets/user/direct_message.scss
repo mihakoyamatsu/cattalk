@@ -1,0 +1,26 @@
+.balloon1-top {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 50%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+  border-radius: 10px;/*角の丸み*/
+}
+
+.balloon1-top p {
+  margin: 0;
+  padding: 0;
+}
+
+.chat-border {
+  border: solid 1px white;
+  margin-bottom: 10px;
+}
+
+.dm-body {
+  word-wrap: break-word;
+}

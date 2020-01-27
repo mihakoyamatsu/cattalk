@@ -1,2 +1,46 @@
-<h1>Admin::Rooms#index</h1>
-<p>Find me in app/views/admin/rooms/index.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-8 offset-2">
+			<% if @rooms.present? %>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ルーム番号</th>
+							<th colspan="2">ユーザー</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% i = 0 %>
+						<% @rooms.each do |room| %>
+							<tr>
+								<td><%= room.id %></td>
+								<td>
+									<%= link_to admin_user_path(@allEntry[i]) do %>
+										<%= attachment_image_tag @allEntry[i], :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
+			    						<%= @allEntry[i].name %>
+			    					<% end %>
+		    					</td>
+		    					<td>
+		    							<% i+= 1 %>
+		    						<%= link_to admin_user_path(@allEntry[i]) do %>
+			    						<%= attachment_image_tag @allEntry[i], :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
+			    						<%= @allEntry[i].name %>
+			    					<% end %>
+		    							<% i+= 1 %>
+		    					</td>
+		    					<td>
+		    						<%= link_to '詳細へ', admin_room_path(room) %>
+		    					</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+				    <!--% @entries.each do |entry| %-->
+				    <!--% end %-->
+				<!--% end %-->
+			<% else %>
+				<h3>現在、チャットルームはありません。</h3>
+			<% end %>
+		</div>
+	</div>
+</div>

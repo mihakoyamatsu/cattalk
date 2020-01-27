@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .user-profile{
-	padding: 2em 2em;
+	padding: 2em 1em;
     margin: 2em 0;
     color: #565656;
     background: #ffffc1;
@@ -27,7 +27,12 @@
     border: dashed 2px #ffc3c3;
     border-radius: 8px;
 }
-
+.cat-images{
+    overflow-wrap: break-word;
+}
+.cat_image {
+    padding-top: 5px;
+}
 .note{
     position: relative;
     margin: 2em 0;
@@ -48,4 +53,72 @@
     color: #ffffff;
     font-weight: bold;
     border-radius: 5px 5px 0 0;
+}
+
+.cat-info{
+    margin:5em 10em;
+    position: relative;
+    padding: 0.5em 1.5em;
+    width: 50%;
+    background-color: white;
+    border-top: solid 2px #000000;
+    border-bottom: solid 2px #000000;
+}
+.cat-info:before, .cat-info:after{
+    content: '';
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: -webkit-calc(100% + 20px);
+    height: calc(100% + 20px);
+    background-color: #000000;
+}
+.cat-info:before {left: 10px;}
+.cat-info:after {right: 10px;}
+
+.cat-profile-edit{
+    margin:2em 0;
+    position: relative;
+    padding: 0.5em 1.5em;
+    border-top: solid 2px #f4b3ff;
+    border-bottom: solid 2px #f4b3ff;
+    background-color: #fbe6ff;
+}
+
+.cat-profile-edit:before, .cat-profile-edit:after{
+    content: '';
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: -webkit-calc(100% + 20px);
+    height: calc(100% + 20px);
+    background-color: #f4b3ff;
+}
+.cat-profile-edit:before {left: 10px;}
+.cat-profile-edit:after {right: 10px;}
+
+.cat-message-edit{
+    margin:2em 0;
+    margin-left: 20px;
+    position: relative;
+    padding: 0.5em 1.5em;
+    border-top: solid 2px #b3e7ff;
+    border-bottom: solid 2px #b3e7ff;
+    background-color: #e6f7ff;
+}
+.cat-message-edit:before, .cat-message-edit:after{
+    content: '';
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: -webkit-calc(100% + 20px);
+    height: calc(100% + 20px);
+    background-color: #b3e7ff;
+}
+.cat-message-edit:before {left: 10px;}
+.cat-message-edit:after {right: 10px;}
+
+
+.update-btn {
+    margin-left: 200px;
 }

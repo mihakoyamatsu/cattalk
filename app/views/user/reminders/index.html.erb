@@ -1,26 +1,21 @@
-<h1>User::Reminders#index</h1>
-<% content_for :mypage do %>
-  <nav>
-	<ul class="nav navbar-nav navbar-right">
-	<li>
-	  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to 'にゃんこメモ', user_user_reminders_path(current_user.id), class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	<%= link_to "フォロー", root_path, class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to 'フォロワー', root_path, method: :delete, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<br>
-	  <p class="navbar-text navbar-right">
-	    <%= current_user.name %>さんのマイページです。
-	  </p>
-	</ul>
-	</nav>
-<% end %>
+<% render 'user/users/mypageheader' %>
+<div class="container">
+	<div class="row">
+		<table class="table-striped index-box">
+			<% if @reminders.present? %>
+				<th >件名</th><th colspan="2">日付</th>
+					<% @reminders.each do |reminder| %>
+						<tr>
+							<td><%= reminder.title %></td>
+							<td style="width:30%;"><%= reminder.date.strftime('%Y/%m/%d') %></td>
+							<td style="width:15%;"><%= link_to '詳細へ', user_reminder_path(reminder),class: "btn btn-primary"  %></td>
+						</tr>
+					<!--%= reminder.note.html_safe %-->
+				<% end %>
+			<% else %>
+				<td>現在、メモはありません。</td>
+			<% end %>
+		</table>
+			<%= link_to '新規作成', new_user_reminder_path, class: "btn btn-warning" %>
+	</div>
+</div>

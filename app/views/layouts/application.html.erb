@@ -7,25 +7,36 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/a9f880f2b4.js" crossorigin="anonymous"></script>
   </head>
-
   <body>
     <header class="navbar nav-head", style="padding: 0 50px; margin-bottom: 0px;">
       <% if yield(:mypage).empty? %>
           <% if admin_signed_in? %>
-            <p class="navbar-text navbar-right">
-              管理者としてログインしています
-            </p>
-          <% elsif user_signed_in? %>
             <nav class="nav navbar-nav navbar-left">
-              <a href="/" class="btn-circle-fishy">cattalk</a>
+              <p>cattalk</p>
             </nav>
             <nav>
               <div class="nav navbar-nav navbar-right">
-                <div><%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
+                <div><%= link_to '全ユーザー一覧', admin_users_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
+                <div><%= link_to '通報ユーザー一覧', admin_user_reports_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %></div>
+                <div><%= link_to '通報投稿一覧', admin_post_reports_path, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to '全DMルーム', admin_rooms_path, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "btn-secondary", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <br>
+            <p class="navbar-text navbar-right">
+              管理者としてログインしています
+            </p>
+
+          <% elsif user_signed_in? %>
+            <nav>
+              <a href="/" class="btn-circle-fishy">cattalk</a>
+            </nav>
+            <nav>
+              <div class="head_nav">
                 <div><%= link_to 'マイページ', user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %></div>
-                <div><%= link_to '供血希望にゃんこ', user_cats_path(current_user.id), class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %></div>
-                <div><%= link_to "輸血希望にゃんこ", user_cats_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to '供血希望にゃんこ', user_cats_path(sort: 0), class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %></div>
+                <div><%= link_to "輸血希望にゃんこ", user_cats_path(sort: 1), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %></div>
                 <div><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn-secondary", style: "margin-left: 5px; margin-top: 33px;" %></div>
                 <br>
                   <p class="navbar-text navbar-right">
@@ -34,7 +45,7 @@
               </div>
             </nav>
           <% else %>
-            <nav class="nav navbar-nav navbar-left">
+            <nav class="navbar-left">
               <a href="/" class="btn-circle-fishy">cattalk</a>
             </nav>
             <nav>
@@ -59,11 +70,12 @@
       <% end %>
 
     </header>
+    <%= yield %>
     <footer class="footer navbar-inverse", style="height: 80px; line-height: 80px; font-size: 20px;">
       <div class="container">
         <p class="nav navbar-nav navbar-right", style="color:white">© All rights reserved by cattalk.Inc.</p>
       </div>
     </footer>
-    <%= yield %>
+    
   </body>
 </html>

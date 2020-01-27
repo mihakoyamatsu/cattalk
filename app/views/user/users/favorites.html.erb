@@ -1,26 +1,42 @@
-<h1>User::Users#favorites</h1>
-<% content_for :mypage do %>
-  <nav>
-	<ul class="nav navbar-nav navbar-right">
-	<li>
-	  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to 'にゃんこメモ', user_user_reminders_path(current_user.id), class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	<%= link_to "フォロー", root_path, class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<li>
-	  <%= link_to 'フォロワー', root_path, method: :delete, class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
-	</li>
-	<br>
-	  <p class="navbar-text navbar-right">
-	    <%= current_user.name %>さんのマイページです。
-	  </p>
-	</ul>
-	</nav>
-<% end %>
+
+<% render 'mypageheader' %>
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1 index-box">
+            <h1>投稿一覧</h1>
+                <% if @favorites.present? %>
+                	<table>
+        				<% @favorites.each do |favorite| %>
+        					<% post = Post.find_by(id: favorite.post_id) %>
+        						<tr>
+                                    <td>
+                                        <%= attachment_image_tag post.user, :image, :fill, 60, 60, format:'jpeg', fallback: "no_image.jpeg", size:'50×50',class:"rounded-circle" %><br>
+                                        <%= link_to post.user.name, user_user_path(post.user.id) %>
+                                    </td>
+                                    <td class="post-body">
+                                        <%= link_to post.body, user_post_path(post.id) %>
+                                    <br>
+                                        <% post.post_images.each do |post_image| %>
+                                            <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                        <% end %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <%= post.created_at.strftime('%Y/%m/%d') %>
+                                        <%= link_to user_post_path(post.id) do %>
+                                            <i class="fa fa-commenting-o" aria-hidden="true"><%= "#{post.comments.count} " %></i>
+                                        <% end %>
+                                        <i class="post-favorite-<%= post.id %>">
+                                            <%= render 'user/favorites/favorite', post: post %>
+                                        </i>
+                                    </td>
+                                </tr>
+                        <% end %>
+                    </table>
+        		<% else %>
+        			<p>現在いいねしている投稿はありません。</p>
+        		<% end %>
+        </div>
+    </div>
+</div>
