@@ -5,6 +5,7 @@ class Admin::UserReportsController < ApplicationController
   end
 
   def show
+    @report = UserReport.find(params[:id])
   end
 
   def hide

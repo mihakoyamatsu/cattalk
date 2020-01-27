@@ -32,7 +32,7 @@
   					</tr>
   					<tr>
   						<td>体重</td>
-  						<td><%= f.text_field :weight %></td>
+  						<td><%= f.text_field :weight,placeholder:'~ kg, ~ g' %></td>
   					</tr>
   					<tr>
   						<td>血液型</td>
@@ -58,11 +58,11 @@
 	          			</tr>
 	          			<tr>
 	          				<td>希望日時</td>
-	          				<td></td>
+	          				<td><%= f.text_area :date, placeholder: "平日可能、曜日指定、指定なしなど" %></td>
 	          			</tr>
 	          			<tr>
 	          				<td>希望エリア</td>
-	          				<td><!--%= f.text_field ,{prompt: '近郊希望 or 指定しない などご記入ください'} %--></td><!--また後で希望エリアカラム作ってから-->
+	          				<td><%= f.text_area :area,placeholder: '近郊希望、他県OK、〜㎞以内、指定しない など' %></td>
 	          			</tr>
 	          			<tr>
 	          				<td>期間</td>

@@ -6,8 +6,12 @@ class User::CatsController < ApplicationController
   def create
     @cat = Cat.new(cat_params)
     @cat.user_id = current_user.id
-    @cat.save!
+    if @cat.save
     redirect_to user_user_path(current_user.id)
+    flash[:notice]= 'MY CATを作成しました。'
+    else
+    render :index
+    end
   end
 
   def index
@@ -20,8 +24,12 @@ class User::CatsController < ApplicationController
 
   def update
     @cat = Cat.find(params[:id])
-    @cat.update(cat_params)
+    if @cat.update(cat_params)
     redirect_to user_user_path(current_user.id)
+    flash[:notice]= 'MY CATを編集しました。'
+    else
+      render :edit
+    end
   end
 
   def destroy

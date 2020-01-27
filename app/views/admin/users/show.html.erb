@@ -1,2 +1,102 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-5">
+			<h4 style="margin-top: 1em;">ユーザー情報</h4>
+				<table class="table" style="word-break: keep-all;" >
+					<tr>
+						<td>プロフィール画像</td>
+						<td><%= attachment_image_tag @user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
+					</tr>
+					<tr>
+						<td>アカウント名</td>
+						<td><%= @user.name %></td>
+					</tr>
+					<tr>
+						<td>メールアドレス</td>
+						<td><%= @user.email %></td>
+					</tr>
+					<tr>
+						<td>お住まい地域</td>
+						<td><%= @user.prefectures %></td>
+					</tr>
+					<tr>
+						<td>お住まい市町村</td>
+						<td><%= @user.cities %></td>
+					</tr>
+					<tr>
+						<td colspan="3">自己紹介文<br><%= @user.introduce %></td>
+					</tr>
+				</table>
+				<h4 style="margin-top: 1em;">ユーザー MY CAT 情報</h4>
+				<div class="cat-profile">
+					<% @user.cats.each.with_index(1) do |cat, i| %>
+						<table class="table">
+							<tr>
+								<td><%= i %> 匹 / <%= @user.cats.count %>匹中</td>
+							</tr>
+							<tr>
+								<td>にゃんこ画像</td>
+								<td class="cat-images">
+									<% cat.cat_images.each do |cat_image| %>
+	                                	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50', class: "cat_image" %>
+	                            	<% end %>
+	                        	</td>
+							</tr>
+							<tr>
+								<td>お名前</td>
+								<td><%= cat.name %></td>
+							</tr>
+							<tr>
+								<td>血液型</td>
+								<td><%= cat.blood_type %></td>
+							</tr>
+							<tr>
+								<td>種類</td>
+								<td><%= cat.breed %></td>
+							</tr>
+							<tr>
+								<td>利用目的</td>
+								<td><%= cat.purpose %></td>
+							</tr>
+							<tr>
+								<td>ステータス</td>
+								<td><%= cat.status %></td>
+							</tr>
+							<tr>
+								<td>期間</td>
+								<td><%= cat.term %></td>
+							</tr>
+							<tr>
+								<td>note</td>
+								<td><%= cat.note %></td>
+							</tr>
+						</table>
+	  				<% end %>
+	  			</div>
+		</div>
+		<div class="col-7">
+			<h4 style="margin-top: 1em;">このユーザーの投稿一覧</h4>
+                <table>
+                    <% @user.posts.each do |post| %>
+                    	<tr>
+                            <td colspan="3">
+                                <%= post.created_at.strftime('%Y/%m/%d') %>
+                                <i class="fa fa-commenting-o" aria-hidden="true"><%= post.comments.count %></i>
+                                <i class="fas fa-paw" aria-hidden="true" style="color: red;"><%= post.favorites.count %></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="post-body">
+                                <%= post.body %>
+                            <br>
+                                <% post.post_images.each do |post_image| %>
+                                    <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </table>
+              </div>
+		</div>
+	</div>
+</div>

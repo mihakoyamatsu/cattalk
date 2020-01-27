@@ -1,7 +1,6 @@
 class User::PostsController < ApplicationController
   def new
-      @post = Post.new
-      @post.post_images.build
+      
   end
 
   def create
@@ -15,6 +14,8 @@ class User::PostsController < ApplicationController
       @posts = Post.where(is_deleted: nil)
       #@user = current_user.id
       #@image = @user.image
+      @post = Post.new
+      @post.post_images.build
   end
 
   def show

@@ -8,7 +8,7 @@ class User::RemindersController < ApplicationController
   	@reminder = Reminder.new(reminder_params)
   	@reminder.user_id = current_user.id
   	@reminder.save!
-  	redirect_to user_user_reminders_path
+  	redirect_to user_reminders_path
   end
 
   def index
@@ -30,6 +30,10 @@ class User::RemindersController < ApplicationController
   end
 
   def destroy
+    @reminder = current_user.reminders.find(params[:id])
+    @reminder.destroy
+     flash[:notice]= 'メモを削除しました'
+    redirect_to user_reminders_path
   end
 
   private

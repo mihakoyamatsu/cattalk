@@ -1,34 +1,17 @@
-<% content_for :mypage do %>
-  <nav class="nav navbar-nav navbar-left">
-    <a href="/" class="btn-circle-fishy">cattalk</a>
-  </nav>
-	<div class="nav navbar-right">
-		<div>
-		  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to 'ねこ新規登録', new_user_cat_path(current_user.id), class: "btn-dark", style: "margin-left: 20px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to 'にゃんこメモ', user_reminders_path, class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to "フォロー", follows_user_user_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		   <%= link_to 'フォロワー', followers_user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<br>
-		  <p class="navbar-text navbar-right">
-		    <%= current_user.name %>さんのマイページです。
-		  </p>
+<% render 'user/users/mypageheader' %>
+<div class="container" >
+	<div class="row">
+		 <table class="table index-box">
+		 	<tr>
+		 		<td>件名 : <%= @reminder.title %></td>
+				<td>日付 : <%= @reminder.date.strftime('%Y/%m/%d') %></td>
+			</tr>
+			<tr>
+				<td colspan="3"><%= @reminder.note.html_safe %></td>
+			</tr>
+		</table>
+		<%= link_to '一覧へ' ,user_reminders_path ,class: "btn btn-outline-primary"%>
+		<%= link_to '編集' ,edit_user_reminder_path ,class: "btn btn-outline-warning"%>
+		<%= link_to '削除' ,user_reminder_path,method: :delete, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-outline-danger" %>
 	</div>
-<% end %>
-
-<p>日付</p><%= @reminder.date %>
-<p>件名</p><%= @reminder.title %>
-<%= @reminder.note.html_safe %>
-<%= link_to '一覧へ' ,user_reminders_path ,class: "btn-link"%>
+</div>

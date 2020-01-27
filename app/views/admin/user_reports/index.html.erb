@@ -5,17 +5,17 @@
         		<table class="table table-striped">
 					<% if @reports.present? %>
 <!--% user = User.where(user_id:userreport.reported_user_id) %-->
-						<th>プロフィール画像</th>
-						<th>アカウント名</th>
+						<th>アカウント</th>
 						<th>メールアドレス</th>
 						<th>都道府県</th>
 						<th>通報内容</th>
 					    <% @reports.each do |report| %>
-							<tr><%= link_to (user_user_path(report.reported_user.id)) do %>
-	  							<td><%= attachment_image_tag report.reported_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
-	  							<td><%= report.reported_user.name %></td>
-	  							<% end %>
-	  							
+							<tr>
+								<td><%= link_to admin_user_path(report.reported_user.id) do %>
+		  								<%= attachment_image_tag report.reported_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+		  								<%= report.reported_user.name %>
+	  								<% end %>
+	  							</td>
 								<td><%= report.reported_user.email %></td>
 								<td><%= report.reported_user.prefectures %></td>
 								<td><%= report.report_message %></td>

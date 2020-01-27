@@ -18,6 +18,7 @@ class User::CommentsController < ApplicationController
   def hide
     @comment = Comment.find(params[:id])
     @comment.update(is_deleted: true)
+    flash[:notice]= 'コメントを削除しました'
     redirect_to user_post_path(@comment.post.id)
   end
 

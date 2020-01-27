@@ -4,9 +4,14 @@
 		<div class="col-8 offset-2">
 			<h3>ルーム番号<%= @room.id %></h3>
 			<table class="table table-striped">
-				<th>送信者名</th>
-				<th>メッセージ本文</th>
-				<th>更新日時</th>
+				<thead>
+					<tr>
+						<th>送信者名</th>
+						<th>メッセージ本文</th>
+						<th>更新日時</th>
+					</tr>
+				</thead>
+				<tbody>
 					<% @messages.each do |message| %>
 					<tr>
 						<td><%= message.user.name %></td>
@@ -14,6 +19,7 @@
 						<td><%= message.updated_at.strftime('%Y/%m/%d') %>(<%= message.updated_at.strftime('%H:%M') %>)</td>
 					</tr>
 					<% end %>
+				</tbody>
 			</table>
 		</div>
 	</div>

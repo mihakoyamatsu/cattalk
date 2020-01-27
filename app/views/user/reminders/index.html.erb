@@ -1,37 +1,21 @@
-<% content_for :mypage do %>
-  <nav class="nav navbar-nav navbar-left">
-    <a href="/" class="btn-circle-fishy">cattalk</a>
-  </nav>
-	<div class="nav navbar-right">
-		<div>
-		  <%= link_to '新規投稿する', new_user_post_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to 'ねこ新規登録', new_user_cat_path(current_user.id), class: "btn-dark", style: "margin-left: 20px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to 'にゃんこメモ', user_reminders_path, class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to "フォロー", follows_user_user_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		   <%= link_to 'フォロワー', followers_user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<br>
-		  <p class="navbar-text navbar-right">
-		    <%= current_user.name %>さんのマイページです。
-		  </p>
+<% render 'user/users/mypageheader' %>
+<div class="container">
+	<div class="row">
+		<table class="table-striped index-box">
+			<% if @reminders.present? %>
+				<th >件名</th><th colspan="2">日付</th>
+					<% @reminders.each do |reminder| %>
+						<tr>
+							<td><%= reminder.title %></td>
+							<td style="width:30%;"><%= reminder.date.strftime('%Y/%m/%d') %></td>
+							<td style="width:15%;"><%= link_to '詳細へ', user_reminder_path(reminder),class: "btn btn-primary"  %></td>
+						</tr>
+					<!--%= reminder.note.html_safe %-->
+				<% end %>
+			<% else %>
+				<td>現在、メモはありません。</td>
+			<% end %>
+		</table>
+			<%= link_to '新規作成', new_user_reminder_path, class: "btn btn-warning" %>
 	</div>
-<% end %>
-
-<% @reminders.each do |reminder| %>
-<p>日付</p><%= reminder.date %>
-<p>件名</p><%= reminder.title %>
-<%= reminder.note.html_safe %>
-<%= link_to '詳細へ', user_reminder_path(reminder), class: "btn-link" %>
-<% end %>
- 
+</div>
