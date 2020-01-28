@@ -16,7 +16,7 @@
                                     <% post = Post.find_by(id:report.post_id) %>
                                     <tr>
                                       	<td>
-                                            <%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
+                                            <%= attachment_image_tag post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' %>
                                             <%= link_to post.user.name, admin_user_path(post.user.id) %>
                                             <i class="fa fa-commenting-o" aria-hidden="true"><%= post.comments.count %></i>
                                             <i class="fas fa-paw" aria-hidden="true" style="color: red;"><%= post.favorites.count %></i>
@@ -24,7 +24,7 @@
                                         <td class="td-post-body">
                                             <%= link_to post.body, admin_post_report_path(post.id) %>
                                             <% post.post_images.each do |post_image| %>
-                                                <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                                <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %>
                                             <% end %>
                                         </td>
                                     </tr>

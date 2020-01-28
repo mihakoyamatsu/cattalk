@@ -8,7 +8,7 @@
 					<tr>
 						<td>
   							<%= link_to user_room_path(entry.room_id) do %>
-    							<%= attachment_image_tag entry.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
+    							<%= attachment_image_tag entry.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' %>
     							<%= entry.user.name %>
   							<% end %>
   						</td>

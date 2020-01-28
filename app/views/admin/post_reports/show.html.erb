@@ -3,7 +3,7 @@
     <table class="table index-box">
       <h1>通報された投稿詳細</h1>
       <tr> 
-      	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' ,class: 'rounded-circle' %>
+      	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
         <%= @post.user.name %></td>
         <td colspan="3"><%= @post.body %></td>
       </tr>
@@ -19,7 +19,7 @@
       <% @post.comments.each do |comment| %>
         <tr>
           <td>
-              <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg" %><br>
+              <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg" %><br>
               <%= comment.user.name %>
           </td>
           <td>

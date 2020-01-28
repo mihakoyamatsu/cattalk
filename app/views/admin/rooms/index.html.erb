@@ -16,14 +16,14 @@
 								<td><%= room.id %></td>
 								<td>
 									<%= link_to admin_user_path(@allEntry[i]) do %>
-										<%= attachment_image_tag @allEntry[i], :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
+										<%= attachment_image_tag @allEntry[i], :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' %>
 			    						<%= @allEntry[i].name %>
 			    					<% end %>
 		    					</td>
 		    					<td>
 		    							<% i+= 1 %>
 		    						<%= link_to admin_user_path(@allEntry[i]) do %>
-			    						<%= attachment_image_tag @allEntry[i], :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
+			    						<%= attachment_image_tag @allEntry[i], :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' %>
 			    						<%= @allEntry[i].name %>
 			    					<% end %>
 		    							<% i+= 1 %>

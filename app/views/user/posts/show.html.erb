@@ -3,7 +3,7 @@
     <table class="table index-box">
       <h1>投稿詳細</h1>
       <tr>
-      	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' ,class: 'rounded-circle' %>
+      	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
         <%= link_to @post.user.name, user_user_path(@post.user.id) %></td>
         <td colspan="3"><%= @post.body %></td>
       </tr>
@@ -27,7 +27,7 @@
         <% if comment.is_deleted == nil %>
         <tr>
           <td>
-            <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg" %><br>
+            <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg" %><br>
             <%= comment.user.name %>
           </td>
           <td>

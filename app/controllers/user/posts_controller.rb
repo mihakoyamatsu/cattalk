@@ -1,21 +1,17 @@
 class User::PostsController < ApplicationController
-  def new
-      
-  end
-
   def create
       @post = Post.new(post_params)
       @post.user_id = current_user.id
-      @post.save
+    if @post.save
       redirect_to root_path
+    else
+      render :index
+    end
   end
 
   def index
       @posts = Post.where(is_deleted: nil)
-      #@user = current_user.id
-      #@image = @user.image
       @post = Post.new
-      @post.post_images.build
   end
 
   def show
