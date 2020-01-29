@@ -41,9 +41,8 @@
 									<%= render 'user_report_new' %>
 							  	</div>
 							</div>
-							<% if @user.id != current_user.id %>
 								<div id="follow_form"><%= render 'user/relationships/relationship', user: @user %></div>
-									<% if current_user.followed_by?(@user) %>
+									<!--% if current_user.followed_by?(@user) %-->
 										<% if @isRoom == true %>
 										  	<%= link_to "チャットルームへ入る", user_room_path(@roomId), class: 'btn btn-outline-success' %>
 										<% else %>
@@ -55,14 +54,13 @@
 								    		<%= f.submit "チャットを開始する", class: 'btn btn-outline-success'%>
 								  			<% end %>
 										<% end %>
-									<% end %>
-							<% end %>
+									<!--% end %-->
 						</div>
 					<% end %>
 
 
 						<div class="user-profile">
-						<table class="table" style="word-break: keep-all;" >
+						<table class="table" >
 							<tr>
 								<td>プロフィール画像</td>
 								<td><%= attachment_image_tag @user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>

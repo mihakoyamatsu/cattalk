@@ -1,93 +1,84 @@
 
-	<%= form_for(cat, url: user_cats_path, method: :post) do |f| %>
-		<div class="row">
-			<div class="cat-profile-new">
-				<table style="margin: 20px 20px">
-  					<tr>
-  						<td>プロフィール画像</td>
-  						<td><%= f.attachment_field :cat_images_images,multiple: true %></td>
-  					</tr>
-  					<tr>
-  						<td>猫の名前</td>
-  						<td><%= f.text_field :name %></td>
-  					</tr>
-  					<tr>
-  						<td>性別</td>
-  						<td><%= f.radio_button :sex, :オス %>
-              					<%= f.label :オス %>
-              			<%= f.radio_button :sex, :オス去勢済み %>
-              					<%= f.label :オス去勢済み %>
-              			<%= f.radio_button :sex, :メス %>
-              					<%= f.label :メス %>
-              			<%= f.radio_button :sex, :メス避妊済み %>
-              					<%= f.label :メス避妊済み %></td>
-  					</tr>
-  					<tr>
-  						<td>種類</td>
-  						<td><%= f.select :breed, [["MIX キジトラ"],["MIX サバトラ"],["MIX 茶トラ"],["MIX 黒"],["MIX グレー"],["MIX 白"],["MIX黒白"],["MIX茶白"],["MIXサビ"],["MIXミケ"],["アビシニアン"],] %></td>
-  					</tr>
-  					<tr>
-  						<td>年齢</td>
-  						<td><%= f.select :age, [["1ヶ月未満"],["1~3ヶ月"],["4~6ヶ月"],["7~12ヶ月"],["1~2歳"],["2~3歳"],["4~7歳"],["8~10歳"],["11歳以上"]] %></td>
-  					</tr>
-  					<tr>
-  						<td>体重</td>
-  						<td><%= f.text_field :weight,placeholder:'~ kg, ~ g' %></td>
-  					</tr>
-  					<tr>
-  						<td>血液型</td>
-  						<td><%= f.select :blood_type, Cat.blood_types.keys, {prompt: '選択してください'}, class: 'btn btn-default' %></td>
-  					</tr>
-  					<tr>
-  						<td>飼い始めた経緯</td>
-  						<td><%= f.text_area :story %></td>
-  					</tr>
+<div class="row">
+    <%= form_for(cat, url: user_cats_path, method: :post) do |f| %>
+        <div class="cat-profile-new">
+				    <table style="margin: 20px 20px">
+      					<tr>
+      						  <td>プロフィール画像</td>
+      						  <td><%= f.attachment_field :cat_images_images,multiple: true %></td>
+      					</tr>
+      					<tr>
+      						  <td>猫の名前</td>
+      						  <td><%= f.text_field :name %></td>
+      					</tr>
+      					<tr>
+      						  <td>性別</td>
+      						  <td><%= f.radio_button :sex, :オス,:checked => true %>
+                  					<%= f.label :オス %>
+                  			<%= f.radio_button :sex, :オス去勢済み %>
+                  					<%= f.label :オス去勢済み %>
+                  			<%= f.radio_button :sex, :メス %>
+                  					<%= f.label :メス %>
+                  			<%= f.radio_button :sex, :メス避妊済み %>
+                  					<%= f.label :メス避妊済み %>
+                    </td>
+      					</tr>
+      					<tr>
+      						  <td>種類</td>
+      						  <td><%= f.select :breed, [["MIX キジトラ"],["MIX サバトラ"],["MIX 茶トラ"],["MIX 黒"],["MIX グレー"],["MIX 白"],["MIX黒白"],["MIX茶白"],["MIXサビ"],["MIXミケ"],["アビシニアン"],] %></td>
+      					</tr>
+      					<tr>
+      						  <td>年齢</td>
+      						  <td><%= f.select :age, [["1ヶ月未満"],["1~3ヶ月"],["4~6ヶ月"],["7~12ヶ月"],["1~2歳"],["2~3歳"],["4~7歳"],["8~10歳"],["11歳以上"]] %></td>
+      					</tr>
+      					<tr>
+      						  <td>体重</td>
+      						  <td><%= f.text_field :weight,placeholder:'~ kg, ~ g' %></td>
+      					</tr>
+      					<tr>
+      						  <td>血液型</td>
+      						  <td><%= f.select :blood_type, Cat.blood_types.keys, {prompt: '選択してください'}, class: 'btn btn-default' %></td>
+      					</tr>
+      					<tr>
+      						  <td>飼い始めた経緯</td>
+      						  <td><%= f.text_area :story %></td>
+      					</tr>
 					</table>
 				</div>
 			<div class="cat-message-new">
 				<h5>メッセージ</h5>
 					<table style="margin: 20px 20px">
-						<tr>
-							<td>利用目的</td>
-							<td><%= f.radio_button :purpose, :供血を希望している %>
+						  <tr>
+						      <td>利用目的</td>
+                  <td><%= f.radio_button :purpose, :供血を希望している,:checked => true %>
           					<%= f.label :供血を希望している %></td>
           				<td><%= f.radio_button :purpose, :輸血を希望している %>
           					<%= f.label :輸血を希望している %></td>
           				<td><%= f.radio_button :purpose, :どちらも希望しない %>
           					<%= f.label :どちらも希望しない %></td>
-	          			</tr>
-	          			<tr>
-	          				<td>希望日時</td>
-	          				<td><%= f.text_area :date, placeholder: "平日可能、曜日指定、指定なしなど" %></td>
-	          			</tr>
-	          			<tr>
-	          				<td>希望エリア</td>
-	          				<td><%= f.text_area :area,placeholder: '近郊希望、他県OK、〜㎞以内、指定しない など' %></td>
-	          			</tr>
-	          			<tr>
-	          				<td>期間</td>
-	          				<td><%= f.select :term, [["指定なし"],["1~4日以内"],["1週間以内"],["2~3週間以内"],["1ヶ月以内"],["2~3ヶ月以内"],["半年以内"],["1年以内"],["その他"]] %></td>
-	          			</tr>
-	          			<tr>
-	          				<td>備考</td>
-	          				<td><%= f.text_area :note %></td>
-	          			</tr>
-	          			<tr>
-	          				<td>ステータス</td>
-	          				<td><%= f.select :status, Cat.statuses.keys.to_a, {prompt: '選択してください'}, class: 'form-control btn btn-default' %></td>
-	          			</tr>
-          			</table>
-      		</div>
-		</div>
-	<!-- <span>性別<%= f.text_field :condition_sex %></span> -->
-	<!-- <span>種類<%= f.text_field :condition_breed %></span> -->
-	<!-- <span>年齢<%= f.text_field :condition_age %></span> -->
-	<!-- <span>血液型<%= f.text_field :condition_blood_type %></span> -->
-	<!-- <span>体重<%= f.text_field :condition_weight %></span><br> -->
-
-	<!--%= link_to_remove_association "削除", f %-->
-
-			<div class="update-btn">
-				<%= f.submit'登録する' ,class: "btn btn-warning btn-lg "%>
-			</div>
-	<% end %>
+	          	</tr>
+	          	<tr>
+	          			<td>希望日時</td>
+	          			<td><%= f.text_area :date, placeholder: "平日可能、曜日指定、指定なしなど" %></td>
+	          	</tr>
+        			<tr>
+        				  <td>希望エリア</td>
+        				  <td><%= f.text_area :area,placeholder: '近郊希望、他県OK、〜㎞以内、指定しない など' %></td>
+        			</tr>
+        			<tr>
+        				  <td>期間</td>
+        				  <td><%= f.select :term, [["指定なし"],["1~4日以内"],["1週間以内"],["2~3週間以内"],["1ヶ月以内"],["2~3ヶ月以内"],["半年以内"],["1年以内"],["その他"]] %></td>
+        			</tr>
+        			<tr>
+        				  <td>備考</td>
+        				  <td><%= f.text_area :note %></td>
+        			</tr>
+        			<tr>
+        				  <td>ステータス</td>
+        				  <td><%= f.select :status, Cat.statuses.keys.to_a, {prompt: '選択してください'}, class: 'form-control btn btn-default' %></td>
+        			</tr>
+          </table>
+      </div>
+    <%= f.submit'登録する' ,class: "btn btn-warning btn-lg "%>
+    <% end %>
+</div>

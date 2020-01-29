@@ -1,55 +1,68 @@
 <section class="container">
-  <tbody>
-    <table class="table index-box">
-      <h1>投稿詳細</h1>
-      <tr>
-      	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
-        <%= link_to @post.user.name, user_user_path(@post.user.id) %></td>
-        <td colspan="3"><%= @post.body %></td>
-      </tr>
-      <tr>
-              <div class="post-favorite-<%= @post.id %>">
-                  <td style="width:8%;"><%= render 'user/favorites/favorite', post: @post %></td>
-              </div>
-              <td style="width:8%;"><i class="fa fa-commenting-o" aria-hidden="true"><%= "#{@post.comments.count}" %></i></td>
-              <td style="width:8%;"><%= link_to "通報",new_user_post_post_report_path(@post),class: "far fa-flag" %></td>
-              <td><%= link_to user_posts_hide_path(@post), method: :put do %>
-                      <i class="fas fa-trash-alt" style= "margin: left;"></i>
-                  <% end %>
-              </td>
-      </tr>
-    </table>
-
-
-    <table class="table index-box">
-
-      <% @post.comments.each do |comment| %>
-        <% if comment.is_deleted == nil %>
-        <tr>
-          <td>
-            <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg" %><br>
-            <%= comment.user.name %>
-          </td>
-          <td>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><br>
-            <%= comment.comment %>
-          </td>
-          <td>
-            <% if comment.user == current_user %>
-            <%= link_to "削除", user_comments_hide_path(comment.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-link pull-right" %>
+    <h1>投稿詳細</h1>
+        <table class="table index-box">
+            <tbody>
+                <tr>
+                    <td>
+                        <%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
+                        <%= link_to @post.user.name, user_user_path(@post.user.id) %>
+                    </td>
+                    <td colspan="3">
+                        <%= @post.body %>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:8%;">
+                        <div class="post-favorite-<%= @post.id %>">
+                            <%= render 'user/favorites/favorite', post: @post %>
+                        </div>
+                    </td>
+                    <td style="width:8%;">
+                        <i class="fa fa-commenting-o" aria-hidden="true">
+                            <%= "#{@post.comments.count}" %>
+                        </i>
+                    </td>
+                    <td style="width:8%;">
+                        <%= link_to "通報",new_user_post_post_report_path(@post),class: "far fa-flag" %>
+                    </td>
+                    <td>
+                        <%= link_to user_posts_hide_path(@post), method: :put do %>
+                            <i class="fas fa-trash-alt" style= "margin: left;"></i>
+                        <% end %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table index-box">
+            <% @post.comments.each do |comment| %>
+                <% if comment.is_deleted == nil %>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg" %><br>
+                                <%= comment.user.name %>
+                            </td>
+                            <td>
+                                <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+                                <%= comment.comment %>
+                            </td>
+                            <td>
+                                <% if comment.user.id == current_user.id %>
+                                    <%= link_to "削除", user_comments_hide_path(comment.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-link pull-right" %>
+                                <% end %>
+                            </td>
+                        </tr>
+                <% end %>
             <% end %>
-          </td>
-        </tr>
-        <% end %>
-      <% end %>
-    </table>
-      <table class="table index-box">
-        <h4>コメント</h4>
-        <%= form_for @comment, url: user_post_comments_path(@post) do |f| %>
-        <%= f.text_field :comment,class: "col-xs-12", placeholder: "コメントをここに" %>
-        <%= f.submit "送信する", class: "btn btn-sm btn-primary mt-20 pull-right" %>
-        <% end %>
-      </table>
+        </table>
+
+        <div class="table index-box">
+            <h4>コメント</h4>
+                <%= form_for @comment, url: user_post_comments_path(@post) do |f| %>
+                    <%= f.text_field :comment,class: "col-xs-12", placeholder: "コメントをここに" %>
+                    <%= f.submit "送信する", class: "btn btn-sm btn-primary mt-20 pull-right" %>
+                <% end %>
+        </div>
       
   </tbody>
 </section>

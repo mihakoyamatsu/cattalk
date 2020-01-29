@@ -23,11 +23,11 @@
 					</tr>
 					<tr>
 						<td>お住まい市町村</td>
-						<td><%= f.text_field :cities %></td>
+						<td><%= f.text_field :cities, placeholder: "〜市、〜町" %></td>
 					</tr>
 					<tr>
 						<td>自己紹介文</td>
-						<td><%= f.text_area :introduce %></td>
+						<td><%= f.text_area :introduce , placeholder: "未設定" %></td>
 					</tr>
 				</table>
 			<%= f.submit '編集する' %>

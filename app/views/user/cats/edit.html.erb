@@ -1,10 +1,11 @@
 <div class="cat-info">
   	<div class="container">
-  		<h2>ネコ編集</h2>
-  			<%= form_for @cat,url:user_cat_path(@cat),method: :patch do |f|%>
-  				<div class="row">
-  					<div class="cat-profile-edit">
-  						<table style="margin: 20px 20px">
+  		<div class="row">
+				<div class="row">
+					<h2>ネコ編集</h2>
+					<%= form_for @cat,url:user_cat_path(@cat),method: :patch do |f|%>
+						<div class="cat-profile-edit">
+							<table style="table-layout:fixed;">
 		  					<tr>
 		  						<td>プロフィール画像</td>
 		  						<td><%= f.attachment_field :cat_images_images,multiple: true %></td>
@@ -15,7 +16,7 @@
 		  					</tr>
 		  					<tr>
 		  						<td>性別</td>
-		  						<td><%= f.radio_button :sex, :オス %>
+		  						<td><%= f.radio_button :sex, :オス,:checked => true %>
 	                  					<%= f.label :オス %>
 	                  			<%= f.radio_button :sex, :オス去勢済み %>
 	                  					<%= f.label :オス去勢済み %>
@@ -46,19 +47,19 @@
 		  					</tr>
 	  					</table>
 	  				</div>
-				</div>
-		<h3>メッセージ</h3>
+  				</div>
+				<h3>メッセージ</h3>
 				<div class="row">
 					<div class="cat-message-edit">
-							<table style="table-layout:fixed;">
-								<tr>
-									<td>利用目的</td>
-									<td><%= f.radio_button :purpose, :供血を希望している %>
-		          					<%= f.label :供血を希望している %></td>
-		          				<td><%= f.radio_button :purpose, :輸血を希望している %>
-		          					<%= f.label :輸血を希望している %></td>
-		          				<td><%= f.radio_button :purpose, :どちらも希望しない %>
-		          					<%= f.label :どちらも希望しない %></td>
+						<table style="table-layout:fixed;">
+							<tr>
+								<td>利用目的</td>
+								<td><%= f.radio_button :purpose, :供血を希望している,:checked => true %>
+	          					<%= f.label :供血を希望している %></td>
+	          				<td><%= f.radio_button :purpose, :輸血を希望している %>
+	          					<%= f.label :輸血を希望している %></td>
+	          				<td><%= f.radio_button :purpose, :どちらも希望しない %>
+	          					<%= f.label :どちらも希望しない %></td>
 		          			</tr>
 		          			<tr>
 		          				<td>希望日時</td>
@@ -80,20 +81,16 @@
 		          				<td>ステータス</td>
 		          				<td><%= f.select :status, Cat.statuses.keys.to_a, {prompt: '選択してください'}, class: 'form-control btn btn-default' %></td>
 		          			</tr>
-		          		</table>
+	          			</table>
 		          	</div>
 				</div>
-		<!-- <span>性別<%= f.text_field :condition_sex %></span> -->
-		<!-- <span>種類<%= f.text_field :condition_breed %></span> -->
-		<!-- <span>年齢<%= f.text_field :condition_age %></span> -->
-		<!-- <span>血液型<%= f.text_field :condition_blood_type %></span> -->
-		<!-- <span>体重<%= f.text_field :condition_weight %></span><br> -->
-
-		<!--%= link_to_remove_association "削除", f %-->
-			<div class="update-btn">
-				<%= f.submit'編集内容を更新する' ,class: "btn btn-warning btn-lg "%>
-        		<% end %>
-            </div>
-            <div><%= link_to '戻る',user_user_path(@cat.user.id) ,class: "btn btn-outline-primary"%>
-            	<%= link_to '削除' ,user_user_path(@cat.user.id),method: :delete, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-outline-danger" %></div>
+				
+					<%= f.submit'編集内容を更新する' ,class: "btn btn-outline-warning btn-lg "%>
+	            
+			<% end %>
+	            <div><%= link_to '戻る',user_user_path(@cat.user.id) ,class: "btn btn-outline-primary"%>
+	            	<%= link_to '削除' ,user_user_path(@cat.user.id),method: :delete, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-outline-danger" %>
+	            </div>
+		</div>
+     </div>
 </div>
