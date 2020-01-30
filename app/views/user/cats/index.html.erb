@@ -1,36 +1,27 @@
 <div class= "container">
-	<% @users.each do |user| %>
-		<% if params[:sort] == "0" %>
-			<% @cats = user.cats.where(purpose: 0) %>
-		<% elsif params[:sort] == "1" %>
-			<% @cats = user.cats.where(purpose: 1) %>
-		<% else %>
-			<% @cats = user.cats %>
-		<% end %>
-		<% if @cats.exists? %>
-
+	<% if @cats_purpose != [] %>
+		<% @cats_purpose.each.with_index(1) do |cat, i| %>
 			<div class = "user-profile">
 				<table class="table table-responsive">
 					<tr>
 						<td>プロフィール画像</td>
 						<td>アカウント名</td>
-						<td><%= link_to user.name, user_user_path(user.id) %></td>
+						<td><%= link_to cat.user.name, user_user_path(cat.user.id) %></td>
 						<td>都道府県</td>
-						<td><%= user.prefectures %></td>
+						<td><%= cat.user.prefectures %></td>
 						<td>地域</td>
-						<td><%= user.cities %></td>
+						<td><%= cat.user.cities %></td>
 					</tr>
 					<tr>
-						<td rowspan="2"><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
+						<td rowspan="2"><%= attachment_image_tag cat.user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
 						<td>メールアドレス</td>
-						<td><%= user.email %></td>
+						<td><%= cat.user.email %></td>
 					</tr>
 					<tr>
 						<td>自己紹介文</td>
-						<td colspan="6"><%= user.introduce %></td>
+						<td colspan="6"><%= cat.user.introduce %></td>
 					</tr>
 				</table>
-				<% @cats.each.with_index(1) do |cat, i| %>
 					<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>
 					  	<div class = "cat-profile_mens">
 							<table class="table table-responsive">
@@ -93,10 +84,9 @@
 							</table>
 				      	</div>
 				    <% end %>
-				<% end %>
 			</div>
-		<% else %> <!-- 10行目のif, @catsがなかった時 -->
-			<p>現在、登録されているにゃんこはいません</p>
-		<% end %> <!-- 10行目のif -->
-    <% end %>
+		<% end %>
+	<% else %>
+		<p class="text-center">現在、登録されているにゃんこはいません。</p>
+	<% end %>
 </div>
