@@ -16,7 +16,17 @@ class User::CatsController < ApplicationController
   end
 
   def index
-    @users = User.all
+    # @users = User.all
+    # @cats0 = Cat.where(purpose: 0)
+    # @cats1 = Cat.where(purpose: 1)
+    @cats = Cat.all
+    if params[:sort] == "0"
+        @cats_purpose = Cat.where(purpose: 0)
+    elsif params[:sort] == "1"
+        @cats_purpose = Cat.where(purpose: 1)
+    else
+        @cats_purpose = []
+    end
   end
 
   def edit
