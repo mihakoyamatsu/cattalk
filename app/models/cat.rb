@@ -2,7 +2,9 @@ class Cat < ApplicationRecord
 	belongs_to :user
 	has_many :cat_images, dependent: :destroy
 	accepts_attachments_for :cat_images, attachment: :image
-	#attachment :image
+	validates :blood_type, presence: true
+	validates :name, presence: true
+	validates :status, presence: true
 
 	enum sex: {
         オス:0, オス去勢済み:1 ,メス:2,メス避妊済み:3
@@ -40,7 +42,7 @@ class Cat < ApplicationRecord
 
 
 	enum status:{
-		希望中:0,希望終了:1
+		希望中:0,希望終了:1,指定なし:2
 	}
 
 end

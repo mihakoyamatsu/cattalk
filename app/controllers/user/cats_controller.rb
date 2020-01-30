@@ -1,4 +1,5 @@
 class User::CatsController < ApplicationController
+
   def new
   	@cat = Cat.new
   end
@@ -10,7 +11,7 @@ class User::CatsController < ApplicationController
     redirect_to user_user_path(current_user.id)
     flash[:notice]= 'MY CATを作成しました。'
     else
-    render :index
+    redirect_to root_path
     end
   end
 
@@ -42,7 +43,7 @@ class User::CatsController < ApplicationController
   private
 
   def cat_params
-      params.require(:cat).permit(:user_id, :name, :sex, :age, :breed, :weight, :blood_type, :story, :purpose, :condition_sex, :condition_breed, :condition_age, :condition_blood_type, :condition_weight, :date,:area,:term, :note, :status, :status,cat_images_images: [])
+      params.require(:cat).permit(:user_id, :name, :sex, :age, :breed, :weight, :blood_type, :story, :purpose, :condition_sex, :condition_breed, :condition_age, :condition_blood_type, :condition_weight, :date,:area,:term, :note, :status, :status,cat_images_images:[])
   end
 
 end

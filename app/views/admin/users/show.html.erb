@@ -38,7 +38,7 @@
 								<td>にゃんこ画像</td>
 								<td class="cat-images">
 									<% cat.cat_images.each do |cat_image| %>
-	                                	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50', class: "cat_image" %>
+	                                	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50', class: "cat_image" %>
 	                            	<% end %>
 	                        	</td>
 							</tr>
@@ -90,7 +90,7 @@
                                 <%= post.body %>
                             <br>
                                 <% post.post_images.each do |post_image| %>
-                                    <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                    <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %>
                                 <% end %>
                             </td>
                         </tr>

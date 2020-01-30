@@ -1,7 +1,7 @@
-<table class="table table-responsive">
+<div>
     <h4>この投稿を通報する</h4>
-    <%= form_for @report, url:user_post_post_reports_path(@post), method: :post do |f| %>
+    <%= form_for(@report, url:user_post_post_reports_path(@post)) do |f| %>
 	    <%= f.text_area :report_message, placeholder: "通報内容を詳しくご記入ください。" %>
-	    <%= f.submit "送信する",class: "btn btn-sm btn-primary mt-20 pull-right" %>
+	    <%= f.submit "送信する" , class: "btn btn-sm btn-primary mt-20 pull-right" %>
     <% end %>
-</table>
+</div>

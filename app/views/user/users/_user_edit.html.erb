@@ -2,7 +2,7 @@
 	<h3>ユーザー編集</h3>
 		<div class="row">
 			<%= form_for(user, url:user_user_path(current_user.id) ,method: :patch) do |f| %>
-				<table class="table table-striped" style="word-break: keep-all;">
+				<table class="table table-striped">
 					<tr>
 						<td>プロフィール画像</td>
 						<td><%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %><%= f.attachment_field :image, placeholder: "プロフィール画像", class: "user-edit-form" %></td>
@@ -21,11 +21,11 @@
 					</tr>
 					<tr>
 						<td>お住まい市町村</td>
-						<td><%= f.text_field :cities %></td>
+						<td><%= f.text_field :cities , placeholder: "〜市、〜町" %></td>
 					</tr>
 					<tr>
 						<td>自己紹介文</td>
-						<td><%= f.text_area :introduce %></td>
+						<td><%= f.text_area :introduce, placeholder: "未設定" %></td>
 					</tr>
 				</table>
 			<%= f.submit '編集する' ,class: 'btn btn-warning' %>

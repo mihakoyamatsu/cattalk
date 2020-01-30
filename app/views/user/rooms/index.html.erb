@@ -1,33 +1,39 @@
+<% render 'user/users/mypageheader' %>
 <h1 class="text-center">チャットルーム一覧</h1>
 <div class="container">
 	<div class="row">
 		<div class="col-8 offset-2">
-			<% @anotherEntries.each do |entry| %>
-        <% if entry.room.is_deleted == nil %>
-				<table class="table table-striped">
-					<tr>
-						<td>
-  							<%= link_to user_room_path(entry.room_id) do %>
-    							<%= attachment_image_tag entry.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpeg", size:'50×50' %>
-    							<%= entry.user.name %>
-  							<% end %>
-  						</td>
+      <% if @anotherEntries.present? %>
+  			<% @anotherEntries.each do |entry| %>
+          <% if entry.room.is_deleted == nil %>
+  				<table class="table table-striped">
+  					<tr>
   						<td>
-  							<% direct_message = DirectMessage.find_by(id: entry.room.direct_message_ids.last).body %>
-  							<%= truncate(direct_message,length: 10) %>
-  						<td>
-  							<%= entry.updated_at.strftime('%Y/%m/%d') %>
-  						</td>
-  						<td>
-  							<%= entry.updated_at.strftime('%H:%M') %>
-  						</td>
-              <td>
-                <%= link_to "削除", user_rooms_hide_path(entry.room_id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %>
-              </td>
-  					</tr>
-  				</table>
-          <% end %>
-			<% end %>
+    							<%= link_to user_room_path(entry.room_id) do %>
+      							<%= attachment_image_tag entry.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' %>
+      							<%= entry.user.name %>
+    							<% end %>
+    						</td>
+    						<td>
+    							<% direct_message = DirectMessage.find_by(id: entry.room.direct_message_ids.last).body %>
+    							<%= truncate(direct_message,length: 10) %>
+    						<td>
+    							<%= entry.updated_at.strftime('%Y/%m/%d') %>
+    						</td>
+    						<td>
+    							<%= entry.updated_at.strftime('%H:%M') %>
+    						</td>
+                <td>
+                  <%= link_to "削除", user_rooms_hide_path(entry.room_id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %>
+                </td>
+    					</tr>
+    				</table>
+            <% end %>
+  			<% end %>
+      <% else %>
+        <p>現在、チャットルームはありません。</p>
+        <p>チャットは相手のプロフィールページより、開始してください。</p>
+      <% end %>
 		</div>
 	</div>
 </div>

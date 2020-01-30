@@ -6,7 +6,7 @@ class Post < ApplicationRecord
 	has_many :favorited_users, through: :favorites, source: :user
     has_many :comments, dependent: :destroy
     has_many :post_reports, dependent: :destroy
-
+    
     def favorited_by?(user)
 		favorites.where(user_id: user.id).exists?
 	end

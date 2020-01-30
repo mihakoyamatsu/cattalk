@@ -3,8 +3,10 @@ class User::UserReportsController < ApplicationController
 	  @user = User.find(params[:user_id])
 	  report = current_user.reporting_relationships.new(report_params)
       report.reported_user_id = @user.id
-	  report.save!
+	if report.save!
 	  redirect_to root_path
+	else
+	  render: template: "users/show"
 	end
 
     private

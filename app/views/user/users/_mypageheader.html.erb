@@ -1,29 +1,22 @@
 <% content_for :mypage do %>
-  <nav class="nav navbar-nav navbar-left">
-    <a href="/" class="btn-circle-fishy">cattalk</a>
-  </nav>
-	<div class="nav navbar-right">
-		<div>
-		  <%= link_to 'マイページTOP', user_user_path(current_user.id), class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to 'DM一覧', user_rooms_path, class: "btn-primary", style: "margin-left: 20px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to '自分のいいね', user_favorites_path, class: "btn-info", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to 'にゃんこメモ', user_reminders_path, class: "btn-warning", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		  <%= link_to "フォロー", follows_user_user_path(current_user.id), class: "btn-success", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<div>
-		   <%= link_to 'フォロワー', followers_user_user_path(current_user.id), class: "btn-danger", style: "margin-left: 5px; margin-top: 33px;" %>
-		</div>
-		<br>
 		  <p class="navbar-text navbar-right">
 		    <%= current_user.name %>さんのマイページです。
 		  </p>
-	</div>
+
+	<div id="nav-drawer">
+      <input id="nav-input" type="checkbox" class="nav-unshown">
+      <label id="nav-open" for="nav-input"><span></span></label>
+      <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+      <div id="nav-content">
+      	<ul>
+		    <li class="fas fa-cat"><%= link_to 'TOPページ', user_posts_path %></li>
+		    <li class="fas fa-cat"><%= link_to 'マイページTOP', user_user_path(current_user.id) %></li>
+		    <li class="fas fa-cat"><%= link_to 'DM一覧', user_rooms_path %></li>
+		    <li class="fas fa-cat"><%= link_to '自分のいいね', user_favorites_path %></li>
+		    <li class="fas fa-cat"><%= link_to 'にゃんこメモ', user_reminders_path %></li>
+		    <li class="fas fa-cat"><%= link_to "フォロー", follows_user_user_path(current_user.id)%></li>
+		    <li class="fas fa-cat"><%= link_to 'フォロワー', followers_user_user_path(current_user.id) %></li>
+		</ul>
+      </div>
+    </div>
 <% end %>

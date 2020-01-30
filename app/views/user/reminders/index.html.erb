@@ -7,7 +7,7 @@
 					<% @reminders.each do |reminder| %>
 						<tr>
 							<td><%= reminder.title %></td>
-							<td style="width:30%;"><%= reminder.date.strftime('%Y/%m/%d') %></td>
+							<td style="width:30%;"><%= reminder.created_at.strftime('%Y/%m/%d') %></td>
 							<td style="width:15%;"><%= link_to '詳細へ', user_reminder_path(reminder),class: "btn btn-primary"  %></td>
 						</tr>
 					<!--%= reminder.note.html_safe %-->

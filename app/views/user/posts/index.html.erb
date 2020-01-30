@@ -10,13 +10,10 @@
                     <% if user_signed_in? %>
                         <div class="sidebar">
                             <h3>プロフィール</h3>
-                                <table style="word-break: keep-all;">
+                                <table>
                                     <tr>
-                                        <td>プロフィール画像</td>
-                                        <td><%= attachment_image_tag current_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>アカウント名</td><td><%= current_user.name %></td>
+                                        <td>アカウント</td>
+                                        <td><%= attachment_image_tag current_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %><br><%= current_user.name %></td>
                                     </tr>
                                     <tr>
                                         <td>メールアドレス</td><td><%= current_user.email %></td>
@@ -70,14 +67,14 @@
                         <% @posts.each do |post| %>
                                 <tr>
                                     <td>
-                                        <%= attachment_image_tag post.user, :image, :fill, 60, 60, format:'jpeg', fallback: "no_image.jpeg", size:'50×50',class:"rounded-circle" %><br>
+                                        <%= attachment_image_tag post.user, :image, :fill, 60, 60, format:'jpeg', fallback: "no_image.jpg", size:'50×50',class:"rounded-circle" %><br>
                                         <%= link_to post.user.name, user_user_path(post.user.id) %>
                                     </td>
-                                    <td class="post-body">
+                                    <td class="td-post-body">
                                         <%= link_to post.body, user_post_path(post.id) %>
                                     <br>
                                         <% post.post_images.each do |post_image| %>
-                                            <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpeg", size:'50×50' %>
+                                            <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %>
                                         <% end %>
                                     </td>
                                 </tr>
@@ -90,6 +87,9 @@
                                         <i class="post-favorite-<%= post.id %>">
                                             <%= render 'user/favorites/favorite', post: post %>
                                         </i>
+                                        <% if post.user == current_user %>
+                                            <%= link_to '削除',user_posts_hide_path(post),method: :put %>
+                                        <% end %>
                                     </td>
                                 </tr>
                         <% end %>

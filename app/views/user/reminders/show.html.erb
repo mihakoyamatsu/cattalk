@@ -4,7 +4,7 @@
 		 <table class="table index-box">
 		 	<tr>
 		 		<td>件名 : <%= @reminder.title %></td>
-				<td>日付 : <%= @reminder.date.strftime('%Y/%m/%d') %></td>
+				<td>日付 : <%= @reminder.date %></td>
 			</tr>
 			<tr>
 				<td colspan="3"><%= @reminder.note.html_safe %></td>
