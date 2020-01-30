@@ -1,4 +1,6 @@
 class User::UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :hide]
   def show
     @user = User.find(params[:id])
     @cat = Cat.new
@@ -22,15 +24,10 @@ class User::UsersController < ApplicationController
           @entry = Entry.new
       end
     end
-    #@roomId = (@user.entries.pluck(:room_id) & current_user.entries.pluck(:room_id)).first
-    #@room, @entry = Room.new, Entry.new unless @roomId
   end
 
   def edit
     @user = User.find(params[:id])
-    # @user.cats.each do |cat|
-      # cat.cat_images.build
-    # end
   end
 
   def update
@@ -41,7 +38,6 @@ class User::UsersController < ApplicationController
 
   def favorites
     @favorites = Favorite.where(user_id:current_user.id)
-
   end
   
   def follows
@@ -59,6 +55,14 @@ class User::UsersController < ApplicationController
     flash[:notice] = "退会しました。"
     redirect_to root_path
   end
+
+  def ensure_correct_user
+      @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to user_user_path(current_user.id)
+    end
+  end
+
 
   private
 

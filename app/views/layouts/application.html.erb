@@ -50,25 +50,21 @@
                     ようこそ　<%= current_user.name %>さん。
                   </p>
           <% else %>
-            <nav class="navbar-left">
-              <a href="/" class="btn-circle-fishy">cattalk</a>
-            </nav>
-            <nav>
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <%= link_to "アバウト", user_homes_about_path, class: "btn-dark" %>
-                </li>
-                <li>
-                  <%=link_to "サインアップ", new_user_registration_path, class: "btn-primary" %>
-                </li>
-                <li>
-                  <%= link_to "ログイン", new_user_session_path, class: "btn-success" %>
-                </li>
+            <div id="nav-drawer">
+              <input id="nav-input" type="checkbox" class="nav-unshown">
+              <label id="nav-open" for="nav-input"><span></span></label>
+              <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+              <div id="nav-content">
+                <ul>
+                    <li class="fas fa-cat"><%= link_to "アバウト", user_homes_about_path %></li>
+                    <li class="fas fa-cat"><%= link_to "サインアップ", new_user_registration_path %></li>
+                    <li class="fas fa-cat"><%= link_to "ログイン", new_user_session_path %></li>
+                </ul>
+              </div>
+            </div>
                   <p class="navbar-text navbar-right">
                     ようこそ　ゲストさん。
                   </p>
-              </ul>
-            </nav>
           <% end %>
       <% else %>
         <%= yield(:mypage) %>

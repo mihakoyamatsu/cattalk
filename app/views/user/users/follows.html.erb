@@ -5,33 +5,38 @@
 <div class="container">
 	<div class="row">
 		<div class="col-8 offset-2">
-			<table class="table table-stripe">
-				<th>プロフィール画像</th>
-				<th>アカウント名</th>
-				<th>メールアドレス</th>
-				<th>都道府県</th>
-				<th></th>
- 				<% @user.followers.each do |user| %>
-	 				<% if user.is_deleted == true %>
-						<td colspan="4">退会済みのユーザー</td>
-					<% else %>
-		 				<% if current_user != user %>
-		 				<tr>
-		 					<td>
-							<%= link_to user_user_path(user.id) do %>
-			  					<%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
-			  				<% end %>
-			  				<td>
-			  					<%= link_to user.name, user_user_path(user.id) %>
-			  				</td>
-							<td><%= user.email %></td>
-							<td><%= user.prefectures %></td>
-						</tr>
+			<% if @user.followers.present? %>
+				<table class="table table-stripe">
+					<th>プロフィール画像</th>
+					<th>アカウント名</th>
+					<th>メールアドレス</th>
+					<th>都道府県</th>
+					<th></th>
+						<% @user.followers.each do |user| %>
+		 				<% if user.is_deleted == true %>
+							<td colspan="4">退会済みのユーザー</td>
+						<% else %>
+			 				<% if current_user != user %>
+			 				<tr>
+			 					<td>
+								<%= link_to user_user_path(user.id) do %>
+				  					<%= attachment_image_tag user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %>
+				  				<% end %>
+				  				<td>
+				  					<%= link_to user.name, user_user_path(user.id) %>
+				  				</td>
+								<td><%= user.email %></td>
+								<td><%= user.prefectures %></td>
+							</tr>
+							<% end %>
 						<% end %>
 					<% end %>
-				<% end %>
-			</table>
+				</table>
+			<% else %>
+				<p>現在、フォローしているユーザーはいません。</p>
+			<% end %>
 		</div>
 	</div>
 </div>
+
 

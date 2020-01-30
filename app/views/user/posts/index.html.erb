@@ -87,6 +87,9 @@
                                         <i class="post-favorite-<%= post.id %>">
                                             <%= render 'user/favorites/favorite', post: post %>
                                         </i>
+                                        <% if post.user == current_user %>
+                                            <%= link_to '削除',user_posts_hide_path(post),method: :put %>
+                                        <% end %>
                                     </td>
                                 </tr>
                         <% end %>

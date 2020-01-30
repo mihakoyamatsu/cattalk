@@ -3,9 +3,9 @@ class User::PostsController < ApplicationController
       @post = Post.new(post_params)
       @post.user_id = current_user.id
     if @post.save
-      redirect_to root_path
+      redirect_to user_post_path(@post)
     else
-      render :index
+      redirect_to root_path
     end
   end
 

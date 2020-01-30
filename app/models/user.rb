@@ -55,8 +55,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20}
   validates :email, presence: true, uniqueness: true
-  validates :introduction, length: {maximum: 100}
-  validates :prefectures, presence: true
+  validates :introduce, length: {maximum: 100}
 
   enum prefectures: {
         大阪府:0,京都府:1,滋賀県:2,奈良県:3,三重県:4,兵庫県:5,和歌山県:6

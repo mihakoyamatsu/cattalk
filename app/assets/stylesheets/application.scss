@@ -24,6 +24,9 @@
 
 footer {
 	background-color: #f2ffe6;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 header {
 	background-color: #f2ffe6;
@@ -140,3 +143,15 @@ header {
   transform: translateX(0%);/*中身を表示（右へスライド）*/
   box-shadow: 6px 0 25px rgba(0,0,0,.15);
 }
+
+.registration {
+  background-color: white;
+  margin: 50px auto;
+}
+
+
+
+
+
+
+

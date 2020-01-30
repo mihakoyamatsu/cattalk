@@ -1,3 +1,73 @@
 // Place all the styles related to the user::homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.logo-image{
+	text-align: center;
+	margin: 50px;
+}
+
+.about{
+	position: relative;
+	display: inline-block;
+	margin: 1.5em 15px 1.5em 0;
+	padding: 7px 10px;
+	min-width: 120px;
+	max-width: 100%;
+	color: #555;
+	font-size: 16px;
+	background: #e0edff;
+}
+.about:before {
+  	content: "";
+  	position: absolute;
+	top: 50%;
+	left: 100%;
+	margin-top: -15px;
+	border: 15px solid transparent;
+	border-left: 15px solid #e0edff;
+}
+
+.how-to{
+	position: relative;
+	display: inline-block;
+	margin: 1.5em 0 1.5em 15px;
+	padding: 7px 10px;
+	min-width: 120px;
+	max-width: 100%;
+	color: #555;
+	font-size: 16px;
+	background: #e0edff;
+}
+
+.how-to:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: -30px;
+	margin-top: -15px;
+	border: 15px solid transparent;
+	border-right: 15px solid #e0edff;
+}
+.right-cat-image {
+	margin-left: 82px;
+}
+.left-cat-image {
+	margin-left: 148px;
+}
+.about_top_box {
+	background-color: aliceblue;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.about_container {
+	background-color: azure;
+	margin: 50px 0;
+	padding: 50px 0;
+}
+
+
+
+
+
+
+

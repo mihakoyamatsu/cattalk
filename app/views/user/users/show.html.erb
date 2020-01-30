@@ -89,31 +89,33 @@
 			</div>
 			<div class="col-7">
 				<h4 style="margin-top: 1em;">MY CAT</h4>
-					<div class="cat-info-new">
-						<!-- 切り替えボタンの設定 -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#catModal">
-						MY CAT 新規追加
-						</button>
+					<% if current_user == @user %>
+						<div class="cat-info-new">
+							<!-- 切り替えボタンの設定 -->
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#catModal">
+							MY CAT 新規追加
+							</button>
 
-						<!-- モーダルの設定 -->
-						<div class="modal fade" id="catModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-						<div class="modal-dialog" role="document">
-						<div class="modal-content" style="width: 180%;">
-						<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">ネコ新規登録</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-						<span aria-hidden="true">&times;</span>
-						</button>
+							<!-- モーダルの設定 -->
+							<div class="modal fade" id="catModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+							<div class="modal-dialog" role="document">
+							<div class="modal-content" style="width: 180%;">
+							<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">ネコ新規登録</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+							<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+							<div class="modal-body">
+							<p><%= render 'cat_new' ,cat: @cat %></p>
+							</div>
+							<div class="modal-footer">
+							</div><!-- /.modal-footer -->
+							</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
 						</div>
-						<div class="modal-body">
-						<p><%= render 'cat_new' ,cat: @cat %></p>
-						</div>
-						<div class="modal-footer">
-						</div><!-- /.modal-footer -->
-						</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
-					</div>
+					<% end %>
 					<div class="cat-profile">
 						<% @user.cats.each.with_index(1) do |cat, i| %>
 							<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>

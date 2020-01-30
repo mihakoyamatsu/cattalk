@@ -7,8 +7,11 @@ class User::PostReportsController < ApplicationController
 	    @post = Post.find(params[:post_id])
       @report = current_user.post_reports.new(report_params)
       @report.post_id = @post.id
-      @report.save!
+    if @report.save!
       redirect_to user_post_path(@post)
+    else
+      render :new
+    end
 	end
 
 	private
