@@ -8,6 +8,7 @@ class User::UserReportsController < ApplicationController
 	else
 	  render: template: "users/show"
 	end
+	end
 
     private
     def report_params
