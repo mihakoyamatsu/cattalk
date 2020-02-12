@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <% if yield(:mypage).empty? %>
+      <!--% if yield(:mypage).empty? %-->
           <% if admin_signed_in? %>
             <div id="nav-drawer">
               <input id="nav-input" type="checkbox" class="nav-unshown">
@@ -38,8 +38,13 @@
               <label class="nav-unshown" id="nav-close" for="nav-input"></label>
               <div id="nav-content">
                 <ul>
-                    <li class="fas fa-cat"><%= link_to 'TOPページ', user_posts_path %></li>
+                    <li class="fas fa-cat"><%= link_to 'ホーム', user_posts_path %></li>
                     <li class="fas fa-cat"><%= link_to 'マイページ', user_user_path(current_user.id) %></li>
+                    <li class="fas fa-cat"><%= link_to 'にゃんこメモ', user_reminders_path %></li>
+                    <li class="fas fa-cat"><%= link_to 'DM一覧', user_rooms_path %></li>
+                    <li class="fas fa-cat"><%= link_to '自分のいいね', user_favorites_path %></li>
+                    <li class="fas fa-cat"><%= link_to "フォロー", follows_user_user_path(current_user.id)%></li>
+                    <li class="fas fa-cat"><%= link_to 'フォロワー', followers_user_user_path(current_user.id) %></li>
                     <li class="fas fa-cat"><%= link_to '供血希望にゃんこ', user_cats_path(sort: 0) %></li>
                     <li class="fas fa-cat"><%= link_to "輸血希望にゃんこ", user_cats_path(sort: 1) %></li>
                     <li class="fas fa-cat"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
@@ -66,9 +71,9 @@
                     ようこそ　ゲストさん。
                   </p>
           <% end %>
-      <% else %>
-        <%= yield(:mypage) %>
-      <% end %>
+      <!--% else %-->
+        <!--%= yield(:mypage) %-->
+      <!--% end %-->
 
     </header>
     <%= yield %>

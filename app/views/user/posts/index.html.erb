@@ -10,22 +10,24 @@
                     <% if user_signed_in? %>
                         <div class="sidebar">
                             <h3>プロフィール</h3>
-                                <table>
+                                <table class="table">
                                     <tr>
-                                        <td>アカウント</td>
-                                        <td><%= attachment_image_tag current_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %><br><%= current_user.name %></td>
+                                        <td>
+                                            <%= attachment_image_tag current_user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "80x80" %>
+                                            <%= current_user.name %>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>メールアドレス</td><td><%= current_user.email %></td>
+                                        <td>メールアドレス：<%= current_user.email %></td>
                                     </tr>
                                     <tr>
-                                        <td>お住まい地域</td><td><%= current_user.prefectures %></td>
+                                        <td>お住まい地域：<%= current_user.prefectures %></td>
                                     </tr>
                                     <tr>
-                                        <td>お住まい市町村</td><td><%= current_user.cities %></td>
+                                        <td>お住まい市町村：<%= current_user.cities %></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3">自己紹介文<br><%= current_user.introduce %></td>
+                                        <td colspan="3">自己紹介文：<br><%= current_user.introduce %></td>
                                     </tr>
                                 </table>
                         </div>
