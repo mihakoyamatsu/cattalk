@@ -8,4 +8,13 @@
 .report-follow-chat-btn{
 	display: flex;
 }
+.profile-show{
+	min-height: 100vh;
+	position: relative;
+	padding-bottom: 80px;
+}
+
+.profile-show, .table th, .table td {
+    word-break: break-all;
+}
 

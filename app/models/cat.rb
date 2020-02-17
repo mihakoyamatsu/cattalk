@@ -42,7 +42,7 @@ class Cat < ApplicationRecord
 
 
 	enum status:{
-		希望中:0,希望終了:1,指定なし:2
+		希望中:0,希望終了:1,一時中断:2
 	}
 
 end

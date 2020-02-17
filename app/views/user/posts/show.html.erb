@@ -12,24 +12,27 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:8%;">
-                        <div class="post-favorite-<%= @post.id %>">
+                    <td style="width:15%;">
+                        <span class="post-favorite-<%= @post.id %>">
                             <%= render 'user/favorites/favorite', post: @post %>
-                        </div>
-                    </td>
-                    <td style="width:8%;">
+                        </span>
                         <i class="fa fa-commenting-o" aria-hidden="true">
                             <%= "#{@post.comments.count}" %>
                         </i>
                     </td>
-                    <td style="width:8%;">
-                        <%= link_to "通報",new_user_post_post_report_path(@post),class: "far fa-flag" %>
-                    </td>
-                    <td>
-                        <%= link_to user_posts_hide_path(@post), method: :put do %>
-                            <i class="fas fa-trash-alt" style= "margin: left;"></i>
+                    <% if user_signed_in? %>
+                        <% if current_user != @post.user %>
+                            <td >
+                                <%= link_to "通報",new_user_post_post_report_path(@post),class: "far fa-flag" %>
+                            </td>
+                        <% else %>
+                            <td >
+                                <%= link_to user_posts_hide_path(@post), method: :put do %>
+                                    <i class="fas fa-trash-alt" style= "margin: left;"></i>
+                                <% end %>
+                            </td>
                         <% end %>
-                    </td>
+                    <% end %>
                 </tr>
             </tbody>
         </table>
@@ -55,13 +58,14 @@
                 <% end %>
             <% end %>
         </table>
-        <div class="table index-box">
-            <h4>コメント</h4>
-                <%= form_for @comment, url: user_post_comments_path(@post) do |f| %>
-                    <%= f.text_field :comment,class: "col-xs-12", placeholder: "コメントをここに" %>
-                    <%= f.submit "送信する", class: "btn btn-sm btn-primary mt-20 pull-right" %>
-                <% end %>
-        </div>
-      
+        <% if user_signed_in? %>
+            <div class="table index-box">
+                <h4>コメント</h4>
+                    <%= form_for @comment, url: user_post_comments_path(@post) do |f| %>
+                        <%= f.text_field :comment,class: "col-xs-12", placeholder: "コメントをここに" %>
+                        <%= f.submit "送信する", class: "btn btn-sm btn-primary mt-20 pull-right" %>
+                    <% end %>
+            </div>
+        <% end %>
   </tbody>
 </section>

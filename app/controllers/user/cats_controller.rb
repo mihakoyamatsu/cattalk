@@ -11,14 +11,11 @@ class User::CatsController < ApplicationController
     redirect_to user_user_path(current_user.id)
     flash[:notice]= 'MY CATを作成しました。'
     else
-    redirect_to root_path
+    redirect_to user_user_path(current_user.id)
     end
   end
 
   def index
-    # @users = User.all
-    # @cats0 = Cat.where(purpose: 0)
-    # @cats1 = Cat.where(purpose: 1)
     @cats = Cat.all
     if params[:sort] == "0"
         @cats_purpose = Cat.where(purpose: 0)
