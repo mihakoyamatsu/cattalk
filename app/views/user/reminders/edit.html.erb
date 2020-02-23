@@ -1,8 +1,15 @@
-<% render 'user/users/mypageheader' %>
-<h3>にゃんこメモ作成</h3>
-<%= form_for @reminder,url:user_reminder_path(@reminder),method: :patch do |f| %>
-    <p> 日付</p><%= f.date_field :date, placeholder: "2020/00/00" %>
-    <p>件名</p><%= f.text_field :title, placeholder: "件名なし" %>
-    <%= f.text_area :note, 'data-provider': :summernote %>
-    <%= f.submit '更新',class: "btn btn-base-1 mt-10 bg-warning" %>
-<% end %>
+<div class="reminder-body">
+	<div class="container" >
+		<div class="row">
+			<div class="col-8 offset-2">
+				<%= form_for @reminder,url:user_reminder_path(@reminder),method: :patch do |f| %>
+				    <h3>にゃんこメモ作成</h3>
+				    <p> 日付</p><%= f.date_field :date, placeholder: "2020/00/00" %>
+				    <p>件名</p><%= f.text_field :title, placeholder: "件名なし" %>
+				    <%= f.text_area :note, 'data-provider': :summernote %>
+				    <%= f.submit '更新',class: "btn btn-base-1 mt-10 bg-warning" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
