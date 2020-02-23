@@ -1,21 +1,22 @@
-<% render 'user/users/mypageheader' %>
-<div class="container">
-	<div class="row">
-		<table class="table-striped index-box">
-			<% if @reminders.present? %>
-				<th >件名</th><th colspan="2">日付</th>
-					<% @reminders.each do |reminder| %>
-						<tr>
-							<td><%= reminder.title %></td>
-							<td style="width:30%;"><%= reminder.created_at.strftime('%Y/%m/%d') %></td>
-							<td style="width:15%;"><%= link_to '詳細へ', user_reminder_path(reminder),class: "btn btn-primary"  %></td>
-						</tr>
-					<!--%= reminder.note.html_safe %-->
+<div class="reminder-body">
+	<div class="container">
+		<div class="row">
+			<table class="table-striped index-box">
+				<% if @reminders.present? %>
+					<th >件名</th><th colspan="2">日付</th>
+						<% @reminders.each do |reminder| %>
+							<tr>
+								<td><%= reminder.title %></td>
+								<td style="width:30%;"><%= reminder.created_at.strftime('%Y/%m/%d') %></td>
+								<td style="width:15%;"><%= link_to '詳細へ', user_reminder_path(reminder),class: "btn btn-primary"  %></td>
+							</tr>
+						<!--%= reminder.note.html_safe %-->
+					<% end %>
+				<% else %>
+					<td>現在、メモはありません。</td>
 				<% end %>
-			<% else %>
-				<td>現在、メモはありません。</td>
-			<% end %>
-		</table>
-			<%= link_to '新規作成', new_user_reminder_path, class: "btn btn-warning" %>
+			</table>
+				<%= link_to '新規作成', new_user_reminder_path, class: "btn btn-warning" %>
+		</div>
 	</div>
 </div>
