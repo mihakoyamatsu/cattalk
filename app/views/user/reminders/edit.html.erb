@@ -8,6 +8,7 @@
 				    <p>件名</p><%= f.text_field :title, placeholder: "件名なし" %>
 				    <%= f.text_area :note, 'data-provider': :summernote %>
 				    <%= f.submit '更新',class: "btn btn-base-1 mt-10 bg-warning" %>
+				    <%= link_to "詳細へ戻る",user_reminder_path(@reminder),class: "btn btn-base-1 mt-20 btn-outline-primary" %>
 				<% end %>
 			</div>
 		</div>
