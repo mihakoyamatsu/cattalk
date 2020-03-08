@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     resources :cats
     resources :reminders
     
-    resources :users, only: [:show, :edit, :update ] do
+    resources :users, only: [:show, :update ] do
       resource :relationships, only: [:create, :destroy]
         member do
           get :follows,:followers

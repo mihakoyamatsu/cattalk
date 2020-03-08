@@ -83,9 +83,7 @@
                                 <tr>
                                     <td colspan="3">
                                         <%= post.created_at.strftime('%Y/%m/%d') %>
-                                        <%= link_to user_post_path(post.id) do %>
                                             <i class="fa fa-commenting-o" aria-hidden="true"><%= "#{post.comments.count} " %></i>
-                                        <% end %>
                                         <i class="post-favorite-<%= post.id %>">
                                             <%= render 'user/favorites/favorite', post: post %>
                                         </i>
