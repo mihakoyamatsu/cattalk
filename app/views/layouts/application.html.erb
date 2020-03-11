@@ -40,7 +40,7 @@
                             <li class="fas fa-cat"><%= link_to 'ホーム', user_posts_path %></li>
                             <li class="fas fa-cat"><%= link_to 'マイページ', user_user_path(current_user.id) %></li>
                             <li class="fas fa-cat"><%= link_to 'にゃんこメモ', user_reminders_path %></li>
-                            <li class="fas fa-cat"><%= link_to 'DM一覧', user_rooms_path %></li>
+                            <li class="fas fa-cat"><%= link_to 'チャットルーム一覧', user_rooms_path %></li>
                             <li class="fas fa-cat"><%= link_to '自分のいいね', user_favorites_path %></li>
                             <li class="fas fa-cat"><%= link_to "フォロー", follows_user_user_path(current_user.id)%></li>
                             <li class="fas fa-cat"><%= link_to 'フォロワー', followers_user_user_path(current_user.id) %></li>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                     <p class="navbar-text navbar-right">
-                      ようこそ　<%= current_user.name %>さん。
+                      ログインユーザー：　<%= current_user.name %>さん
                     </p>
             <% else %>
                 <div id="nav-drawer">
@@ -65,20 +65,20 @@
                             <li class="fas fa-cat"><%= link_to "アバウト", user_homes_about_path %></li>
                             <li class="fas fa-cat"><%= link_to '供血希望にゃんこ', user_cats_path(sort: 0) %></li>
                             <li class="fas fa-cat"><%= link_to "輸血希望にゃんこ", user_cats_path(sort: 1) %></li>
-                            <li class="fas fa-cat"><%= link_to "サインアップ", new_user_registration_path %></li>
+                            <li class="fas fa-cat"><%= link_to "新規登録", new_user_registration_path %></li>
                             <li class="fas fa-cat"><%= link_to "ログイン", new_user_session_path %></li>
-
-                            <li class="fas fa-cat"><%= link_to 'マイページ', new_user_session_path %></li>
-                            <li class="fas fa-cat"><%= link_to 'にゃんこメモ', user_reminders_path %></li>
-                            <li class="fas fa-cat"><%= link_to 'DM一覧', user_rooms_path %></li>
-                            <li class="fas fa-cat"><%= link_to '自分のいいね', user_favorites_path %></li>
-                            <li class="fas fa-cat"><%= link_to "フォロー", new_user_session_path %></li>
-                            <li class="fas fa-cat"><%= link_to 'フォロワー', new_user_session_path %></li>
+                            <li>ログイン後に以下の機能が使えるようになります。</li>
+                            <li class="fas fa-cat">マイページ</li>
+                            <li class="fas fa-cat">にゃんこメモ</li>
+                            <li class="fas fa-cat">チャット</li>
+                            <li class="fas fa-cat">自分のいいね</li>
+                            <li class="fas fa-cat">フォロー</li>
+                            <li class="fas fa-cat">フォロワー</li>
                         </ul>
                     </div>
                 </div>
                     <p class="navbar-text navbar-right">
-                      ようこそ　ゲストさん。
+                      ログインしていません。
                     </p>
             <% end %>
         <!--% else %-->

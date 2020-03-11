@@ -1,4 +1,5 @@
 class User::FavoritesController < ApplicationController
+  
   before_action :post_params
 	def create
       favorite = current_user.favorites.new(post_id: @post.id)

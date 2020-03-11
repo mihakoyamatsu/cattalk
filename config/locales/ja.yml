@@ -1,0 +1,15 @@
+ja:
+    activerecord:
+        models:
+            cat: 猫
+            user: アイテム
+            post_report: 投稿の通報
+        attributes:
+            cat: #モデル名
+                name: 猫の名前　 #変換後の日本語を記入
+            user:
+                name: アカウント名
+                introduce: 自己紹介文
+                email: メールアドレス
+            post_report:
+                report_message: 通報内容

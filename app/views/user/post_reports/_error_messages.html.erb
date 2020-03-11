@@ -1,0 +1,10 @@
+<% if report.errors.any? %>
+	<div class="alart alart-warning">
+		<h4><%= report.errors.count %>件のエラーがあります。</h4>
+		<ul>
+			<% report.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

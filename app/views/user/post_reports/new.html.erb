@@ -1,7 +1,51 @@
-<div>
-    <h4>この投稿を通報する</h4>
-    <%= form_for(@report, url:user_post_post_reports_path(@post)) do |f| %>
-	    <%= f.text_area :report_message, placeholder: "通報内容を詳しくご記入ください。" %>
-	    <%= f.submit "送信する" , class: "btn btn-sm btn-primary mt-20 pull-right" %>
-    <% end %>
+<% if flash.now[:alart] %>
+			<div class="alert alert-danger">
+					<%= flash.now[:alart] %>
+			</div>
+
+<% end %>
+
+<div class="container">
+	<%= render 'user/post_reports/error_messages', report: @report %>
+	<div class="report-form">
+		<div class="row">
+			<div class="col-8 offset-2">
+			<h3>通報</h3>
+			    <table class="table index-box">
+			        <tbody>
+			            <tr>
+			                <td style="width:20%;">
+			                    <%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
+			                    <%= link_to @post.user.name, user_user_path(@post.user.id) %>
+			                </td>
+			                <td colspan="3">
+			                    <%= @post.body %><br>
+                                <% @post.post_images.each do |post_image| %>
+                                    <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %>
+                                <% end %>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td style="width:15%;">
+			                    <i class="fas fa-paw" aria-hidden="true">
+			                    	<%= @post.favorites.count %>
+			                    </i>
+			                    <i class="fa fa-commenting-o" aria-hidden="true">
+			                        <%= "#{@post.comments.count}" %>
+			                    </i>
+			                </td>
+			    		</tr>
+			    	</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8 offset-2">
+			    <%= form_for(@report, url:user_post_post_reports_path(@post)) do |f| %>
+				    <%= f.text_area :report_message, placeholder: "通報内容を詳しくご記入ください。",:size => "60*60"  %>
+				    <%= f.submit "送信する" , class: "btn btn-sm btn-primary" %>
+			    <% end %>
+			</div>
+		</div>
+	</div>
 </div>
