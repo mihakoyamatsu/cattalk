@@ -1,60 +1,74 @@
+<% if flash[:notice] %>
+			<div class="alert alert-success">
+					<%= flash[:notice] %>
+			</div>
+		<% elsif flash.now[:alart] %>
+			<div class="alert alert-danger">
+					<%= flash.now[:alart] %>
+			</div>
 
-<% render 'mypageheader',user:@user %>
+		<% end %>
+
 <div class= "profile-show">
 	<div class="container">
+		<%= render 'user/users/error_messages', user: @user %>
 		<div class="row">
-			<% if @user.is_deleted == true %>
-				<h1>退会済みのユーザーです。</h1>
-			<% else %>
+			<div class="col-5">
+				<h4 style="margin-top: 1em;">プロフィール</h4>
+			</div>
+			<div class="col-7">
+				<h4 style="margin-top: 1em;">MY CAT
+					<% if @user.id == current_user.id %>
+						<%= link_to " 新規追加", new_user_cat_path ,class: "fas fa-plus btn btn-primary ml-3" %>
+					<% end %>
+				</h4>
+			</div>
+		</div>
+		<div class="row">
+			<!--% if @user.is_deleted == true %-->
+				<!-- <h1>退会済みのユーザーです。</h1> -->
+			<!--% else %-->
+			<% if user_signed_in? %>
 				<div class="col-5">
-					<h4 style="margin-top: 1em;">プロフィール</h4>
-						<% if @user.id == current_user.id %>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">
-										プロフィール編集
-							</button>
-							<%= link_to "退会する", user_users_hide_path(@user), method: :put, data: { confirm: "本当にこのサイトを退会してよろしいですか？","commit" => "退会します", "cancel" => "やっぱりやめる",}, title: "退会の確認" %>
-								<!-- モーダルの設定 -->
-								<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-								<div class="modal-dialog" role="document">
-								<div class="modal-content" style="width: 115%;">
-								<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">プロフィール編集</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-								<span aria-hidden="true">&times;</span>
-								</button>
-								</div>
-								<div class="modal-body">
-								<p><%= render 'user_edit', user: @user %></p>
-								</div>
-								<div class="modal-footer">
-								</div><!-- /.modal-footer -->
-								</div><!-- /.modal-content -->
-								</div><!-- /.modal-dialog -->
-								</div><!-- /.modal -->
-							<!-- 切り替えボタンの設定 -->
-						<% else %>
-							<div class="report-follow-chat-btn">
-									<%= render 'user_report_new' %>
-
-									<div id="follow_form"><%= render 'user/relationships/relationship', user: @user %></div>
-										<!--% if current_user.followed_by?(@user) %-->
-											<% if @isRoom == true %>
-											  	<%= link_to "チャットルームへ入る", user_room_path(@roomId), class: 'btn btn-outline-success' %>
-											<% else %>
-											  	<%= form_for @room, url: user_rooms_path do |f| %>
-										    		<%= f.hidden_field :name, :value => "ダイレクトメッセージ" %>
-										    		<!--%= f.fields_for @entry do |e| %-->
-										     		<%= f.hidden_field :user_id, :value => @user.id %>
-										    		<!--% end %-->
-									    		<%= f.submit "チャットを開始する", class: 'btn btn-outline-success'%>
-									  			<% end %>
-											<% end %>
-										<!--% end %-->
-							</div>
-						<% end %>
-
-
+					<% if @user.id == current_user.id %>
+						<%= form_for(@user, url:user_user_path(@user.id) ,method: :patch) do |f| %>
 							<div class="user-profile">
+									<%= attachment_image_tag @user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %><%= f.attachment_field :image, class: "user-edit-form" %>
+								<div>アカウント名</div>
+									<%= f.text_field :name, :size => "30*30" %>
+								<div>メールアドレス</div>
+									<%= f.text_field :email, :size => "30*30" %>
+								<div><%= f.label :都道府県 %></div>
+									<%= f.select :prefectures, User.prefectures.keys, class: 'btn btn-default' %>
+								<div>お住まい市町村</div>
+									<%= f.text_field :cities , placeholder: "〜市、〜町", :size => "30*30" %>
+								<div>自己紹介文</div>
+									<%= f.text_area :introduce, placeholder: "未設定" , :size => "30*30"%>
+							</div>
+							<div class= "update-btn">
+								<%= f.submit '編集する' ,class: 'btn btn-warning btn-block mb-2' %>
+								<span><%= link_to "退会する方はこちら>>", user_users_hide_path(@user), method: :put, data: { confirm: "本当にこのサイトを退会してよろしいですか？","commit" => "退会します", "cancel" => "やっぱりやめる",}, title: "退会の確認" %></span>
+							</div>
+							<% end %>
+					<% else %>
+						<div class="report-follow-chat-btn">
+							<%= render 'user_report_new' %>
+							<div id="follow_form"><%= render 'user/relationships/relationship', user: @user %></div>
+									<!--% if current_user.followed_by?(@user) %-->
+								<% if @isRoom == true %>
+									<%= link_to "チャットルームへ入る", user_room_path(@roomId), class: 'btn btn-outline-success' %>
+								<% else %>
+									<%= form_for @room, url: user_rooms_path do |f| %>
+							    		<%= f.hidden_field :name, :value => "ダイレクトメッセージ" %>
+							    		<!--%= f.fields_for @entry do |e| %-->
+							     		<%= f.hidden_field :user_id, :value => @user.id %>
+							    		<!--% end %-->
+								    	<%= f.submit "チャットを開始する", class: 'btn btn-outline-success'%>
+								 	<% end %>
+								<% end %>
+									<!--% end %-->
+						</div>
+						<div class="user-profile">
 							<table class= "table" style="table-layout: fixed;">
 								<tr>
 									<td>プロフィール画像</td>
@@ -66,7 +80,7 @@
 								</tr>
 								<tr>
 									<td>メールアドレス</td>
-									<td><%= @user.email %></td>
+									<td colspan="2"><%= @user.email %></td>
 								</tr>
 								<tr>
 									<td>お住まい地域</td>
@@ -80,152 +94,123 @@
 									<td colspan="3">自己紹介文：<%= @user.introduce %></td>
 								</tr>
 							</table>
-							</div>
+						</div>
+					<% end %>
 				</div>
 				<div class="col-7">
-					<h4 style="margin-top: 1em;">MY CAT</h4>
-						<% if current_user == @user %>
-							<div class="cat-info-new">
-								<!-- 切り替えボタンの設定 -->
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#catModal">
-								MY CAT 新規追加
-								</button>
-
-								<!-- モーダルの設定 -->
-								<div class="modal fade" id="catModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-								<div class="modal-dialog" role="document">
-								<div class="modal-content" style="width: 180%;">
-								<div class="cat-modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">ネコ新規登録</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-								<span aria-hidden="true">&times;</span>
-								</button>
-								</div>
-								<div class="cat-modal-body">
-								<p><%= render 'cat_new' ,cat: @cat %></p>
-								</div>
-								<div class="cat-modal-footer">
-								</div><!-- /.modal-footer -->
-								</div><!-- /.modal-content -->
-								</div><!-- /.modal-dialog -->
-								</div><!-- /.modal -->
-							</div>
-						<% end %>
-						<div class="cat-profile">
-							<% @user.cats.each.with_index(1) do |cat, i| %>
-								<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>
-			  						<div class = "cat-profile_mens">
-			  							<table class="table" >
-											<tr>
-												<td><%= i %> 匹 / <%= @user.cats.count %>匹中</td>
-													<% if @user.id == current_user.id %>
-														<td><%= link_to '編集する', edit_user_cat_path(cat), class: "btn btn-warning" %>
-															<%= link_to '削除する', user_cat_path(cat),method: :delete, class: "btn btn-danger" %></td>
-													<% end %>
-											</tr>
-											<tr>
-												<td>にゃんこ画像</td>
-												<td class="cat-images">
-													<% cat.cat_images.each do |cat_image| %>
-
-			                                        	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50', class: "cat_image" %>
-			                                    	<% end %>
-			                                	</td>
-											</tr>
-											<tr>
-												<td>お名前</td>
-												<td><%= cat.name %></td>
-											</tr>
-											<tr>
-												<td>性別</td>
-												<td><%= cat.sex %></td>
-											</tr>
-											<tr>
-												<td>血液型</td>
-												<td><%= cat.blood_type %></td>
-											</tr>
-											<tr>
-												<td>種類</td>
-												<td><%= cat.breed %></td>
-											</tr>
-											<tr>
-												<td>利用目的</td>
-												<td><%= cat.purpose %></td>
-											</tr>
-											<tr>
-												<td>ステータス</td>
-												<td><%= cat.status %></td>
-											</tr>
-											<tr>
-												<td>期間</td>
-												<td><%= cat.term %></td>
-											</tr>
-											<tr>
-												<td colspan="2">備考：<%= cat.note %></td>
-											</tr>
-										</table>
-					  				</div>
-				  				<% else %>
-				  					<div class = "cat-profile_ledis">
-				  						<table class="table" style="table-layout: fixed;">
-											<tr>
-												<td><%= i %> 匹 / <%= @user.cats.count %>匹中</td>
-												<% if @user.id == current_user.id %>
+				<!-- <h4 style="margin-top: 1em;">MY CAT</h4> -->
+					<div class="cat-profile">
+						<% @user.cats.each.with_index(1) do |cat, i| %>
+							<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>
+		  						<div class = "cat-profile_mens">
+		  							<table class="table" >
+										<tr>
+											<td><%= i %> 匹 / <%= @user.cats.count %>匹中</td>
+												<% if user_signed_in? && @user.id == current_user.id %>
 													<td><%= link_to '編集する', edit_user_cat_path(cat), class: "btn btn-warning" %>
 														<%= link_to '削除する', user_cat_path(cat),method: :delete, class: "btn btn-danger" %></td>
 												<% end %>
-											</tr>
-											<tr>
-												<td>にゃんこ画像</td>
-												<td class="cat-images">
-													<% cat.cat_images.each do |cat_image| %>
+										</tr>
+										<tr>
+											<td class="cat-images" colspan="2">
+												<% cat.cat_images.each do |cat_image| %>
 
-			                                        	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50', class: "cat_image" %>
-			                                    	<% end %>
-			                                	</td>
-											</tr>
-											<tr>
-												<td>お名前</td>
-												<td><%= cat.name %></td>
-											</tr>
-											<tr>
-												<td>性別</td>
-												<td><%= cat.sex %></td>
-											</tr>
-											<tr>
-												<td>血液型</td>
-												<td><%= cat.blood_type %></td>
-											</tr>
-											<tr>
-												<td>種類</td>
-												<td><%= cat.breed %></td>
-											</tr>
-											<tr>
-												<td>利用目的</td>
-												<td><%= cat.purpose %></td>
-											</tr>
-											<tr>
-												<td>ステータス</td>
-												<td><%= cat.status %></td>
-											</tr>
-											<tr>
-												<td>期間</td>
-												<td><%= cat.term %></td>
-											</tr>
-											<tr>
-												<td colspan="2">備考：<%= cat.note %></td>
-											</tr>
-										</table>
-				  					</div>
-			  					<% end %>
-			  				<% end %>
-				  		</div>
+		                                        	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , size:'50×50', class: "cat_image" %>
+		                                    	<% end %>
+		                                	</td>
+										</tr>
+										<tr>
+											<td>お名前</td>
+											<td><%= cat.name %></td>
+										</tr>
+										<tr>
+											<td>性別</td>
+											<td><%= cat.sex %></td>
+										</tr>
+										<tr>
+											<td>血液型</td>
+											<td><%= cat.blood_type %></td>
+										</tr>
+										<tr>
+											<td>種類</td>
+											<td><%= cat.breed %></td>
+										</tr>
+										<tr>
+											<td>利用目的</td>
+											<td><%= cat.purpose %></td>
+										</tr>
+										<tr>
+											<td>ステータス</td>
+											<td><%= cat.status %></td>
+										</tr>
+										<tr>
+											<td>期間</td>
+											<td><%= cat.term %></td>
+										</tr>
+										<tr>
+											<td colspan="2">備考：<%= cat.note %></td>
+										</tr>
+									</table>
+				  				</div>
+			  				<% else %>
+			  					<div class = "cat-profile_ledis">
+			  						<table class="table" style="table-layout: fixed;">
+										<tr>
+											<td><%= i %> 匹 / <%= @user.cats.count %>匹中</td>
+											<% if user_signed_in? && @user.id == current_user.id %>
+												<td><%= link_to '編集する', edit_user_cat_path(cat), class: "btn btn-warning" %>
+													<%= link_to '削除する', user_cat_path(cat),method: :delete, class: "btn btn-danger" %></td>
+											<% end %>
+										</tr>
+										<tr>
+											<td class="cat-images" colspan="2">
+												<% cat.cat_images.each do |cat_image| %>
+
+		                                        	<%= attachment_image_tag cat_image, :image, :fill, 100, 100, format:'jpeg' , size:'50×50', class: "cat_image" %>
+		                                    	<% end %>
+		                                	</td>
+										</tr>
+										<tr>
+											<td>お名前</td>
+											<td><%= cat.name %></td>
+										</tr>
+										<tr>
+											<td>性別</td>
+											<td><%= cat.sex %></td>
+										</tr>
+										<tr>
+											<td>血液型</td>
+											<td><%= cat.blood_type %></td>
+										</tr>
+										<tr>
+											<td>種類</td>
+											<td><%= cat.breed %></td>
+										</tr>
+										<tr>
+											<td>利用目的</td>
+											<td><%= cat.purpose %></td>
+										</tr>
+										<tr>
+											<td>ステータス</td>
+											<td><%= cat.status %></td>
+										</tr>
+										<tr>
+											<td>期間</td>
+											<td><%= cat.term %></td>
+										</tr>
+										<tr>
+											<td colspan="2">備考：<%= cat.note %></td>
+										</tr>
+									</table>
+			  					</div>
+		  					<% end %>
+		  				<% end %>
+				  	</div>
 				</div>
+			<!--% end %-->
 			<% end %>
 		</div>
 	</div>
 </div>
-
-
 
 

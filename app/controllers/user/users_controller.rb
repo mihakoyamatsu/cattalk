@@ -1,39 +1,42 @@
 class User::UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:edit, :update, :hide,:favorites,:show, :follows, :followers]
   before_action :ensure_correct_user, only: [:edit, :update, :hide]
   def show
-    @user = User.find(params[:id])
-    @cat = Cat.new
+      @user = User.find(params[:id])
+      @cat = Cat.new
     if @user.cats.exists?
-    @cats = Cat.where(user_id:current_user.id)
+      @cats = Cat.where(user_id: @user)
     end
-    @report = current_user.reporting_relationships.build(reported_user_id: @user.id)
-    @currentUserEntry = Entry.where(user_id: current_user.id)
-    @userEntry = Entry.where(user_id: @user.id)
-    unless @user.id == current_user.id
-      @currentUserEntry.each do |currentuser|
-        @userEntry.each do |user|
-          if currentuser.room_id == user.room_id then
-            @isRoom = true
-            @roomId = currentuser.room_id
+    if user_signed_in?
+      @report = current_user.reporting_relationships.build(reported_user_id: @user.id)
+      @currentUserEntry = Entry.where(user_id: current_user.id)
+      @userEntry = Entry.where(user_id: @user.id)
+      unless @user.id == current_user.id
+        @currentUserEntry.each do |currentuser|
+          @userEntry.each do |user|
+            if currentuser.room_id == user.room_id then
+              @isRoom = true
+              @roomId = currentuser.room_id
+            end
           end
         end
-      end
-      unless @isRoom
-          @room = Room.new
-          @entry = Entry.new
+        unless @isRoom
+            @room = Room.new
+            @entry = Entry.new
+        end
       end
     end
-  end
-
-  def edit
-    @user = User.find(params[:id])
   end
 
   def update
   	@user = User.find(params[:id])
-  	@user.update(user_params)
-  	redirect_to user_user_path(current_user.id)
+  if @user.update(user_params)
+    flash[:notice]="プロフィールを更新しました。"
+  	redirect_to user_user_path(@user)
+  else
+    flash.now[:alart]="プロフィールを更新に失敗しました。"
+    render :show
+  end
   end
 
   def favorites

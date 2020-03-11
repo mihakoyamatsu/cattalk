@@ -1,4 +1,5 @@
 class User::RoomsController < ApplicationController
+  before_action :authenticate_user!
   def index
     #チャット相手の名前で一覧表示するにはcurrent_user.rooms.allだと、room.name("DM")で表示させることになり、誰とのトークか見分けつかない。
     #entryは塊になって浮いてる状態なので、配列にするには、entryを一件ずつ取り出して、配列の箱に入れる。
