@@ -3,93 +3,93 @@
 		<div class="row">
 			<div class="col-10 offset-1">
 				<% if params[:sort] == "0" %>
-					<h1>供血希望にゃんこ一覧</h1>
+					<h2>供血希望にゃんこ一覧</h2>
 				<% elsif params[:sort] == "1" %>
-					<h1>輸血希望にゃんこ一覧</h1>
+					<h2>輸血希望にゃんこ一覧</h2>
 				<% end %>
 					<% if @cats_purpose != [] %>
-						<% @cats_purpose.each.with_index(1) do |cat, i| %>
-							<div class = "user-profile">
-								<table class="table">
-									<tr>
-										<td style="width:10%;">アカウント名</td>
-										<td style="width:20%;"><%= link_to cat.user.name, user_user_path(cat.user.id) %></td>
-										<td style="width:20%;">都道府県：<%= cat.user.prefectures %></td>
-										<td>地域：<%= cat.user.cities %></td>
-									</tr>
-									<tr>
-										<td rowspan="2" style="width:10%;"><%= attachment_image_tag cat.user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
-										<td style="width:20%;">メールアドレス</td>
-										<td colspan="2"><%= cat.user.email %></td>
-									</tr>
-									<tr>
-										<td style="width:10%;">自己紹介文</td>
-										<td colspan="2"><%= cat.user.introduce %></td>
-									</tr>
-								</table>
-									<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>
-									  	<div class = "cat-profile_mens">
-											<table class="table">
-												<tr>
-													<td>NO.<%= i %></td>
-													<td>お名前　　<%= cat.name %></td>
-													<td>
-														<% if cat.status == "希望中" %>
-															ステータス：<span class="btn btn-danger"><%= cat.status %></span>
-														<% elsif cat.status == "希望終了" or cat.status == "一時中断" %>
-															ステータス：<span class="btn btn-outline-secondary disabled"><%= cat.status %></span>
-														<% end %>
-													</td>
-												</tr>
-												<tr>
-													<td>性別</td>
-													<td><%= cat.sex %></td>
-													<td>期間：<%= cat.term %></td>
-												</tr>
-												<tr>
-													<td>血液型</td>
-													<td><%= cat.blood_type %></td>
-													<td>種類：<%= cat.breed %></td>
-												</tr>
-												<tr>
-													<td colspan="3">note：<%= cat.note %></td>
-												</tr>
-											</table>
-								      	</div>
-								    <% else %>
-								      	<div class = "cat-profile_ledis">
-											<table class="table">
-												<tr>
-													<td>NO.<%= i %></td>
-													<td>お名前　　<%= cat.name %></td>
-													<td>
-														<% if cat.status == "希望中" %>
-															ステータス：<span class="btn btn-danger"><%= cat.status %></span>
-														<% elsif cat.status == "希望終了" or cat.status == "一時中断" %>
-															ステータス：<span class="btn btn-outline-secondary disabled"><%= cat.status %></span>
-														<% end %>
-													</td>
-												</tr>
-												<tr>
-													<td>性別</td>
-													<td><%= cat.sex %></td>
-													<td>期間：<%= cat.term %></td>
-												</tr>
-												<tr>
-													<td>血液型</td>
-													<td><%= cat.blood_type %></td>
-													<td>種類：<%= cat.breed %></td>
-												</tr>
-												<tr>
-													<td colspan="3">note：<%= cat.note %></td>
-												</tr>
-											</table>
-								      	</div>
-								    <% end %>
-							</div>
-						<% end %>
+							<% @cats_purpose.each.with_index(1) do |cat, i| %>
+								<div class = "user-profile">
+									<table class="table">
+										<tr>
+											<td style="width:10%;">アカウント名</td>
+											<td style="width:20%;"><%= link_to cat.user.name, user_user_path(cat.user.id) %></td>
+											<td style="width:20%;">都道府県：<%= cat.user.prefectures %></td>
+											<td>地域：<%= cat.user.cities %></td>
+										</tr>
+										<tr>
+											<td rowspan="2" style="width:10%;"><%= attachment_image_tag cat.user, :image, format: 'jpeg',fallback: "no_image.jpg", size: "100x100" %></td>
+											<td style="width:20%;">メールアドレス</td>
+											<td colspan="2"><%= cat.user.email %></td>
+										</tr>
+										<tr>
+											<td style="width:10%;">自己紹介文</td>
+											<td colspan="2"><%= cat.user.introduce %></td>
+										</tr>
+									</table>
+										<% if cat.sex == "オス" or cat.sex =="オス去勢済み" %>
+										  	<div class = "cat-profile_mens">
+												<table class="table">
+													<tr>
+														<td>NO.<%= i %></td>
+														<td>お名前　　<%= cat.name %></td>
+														<td>
+															<% if cat.status == "希望中" %>
+																ステータス：<span class="btn btn-danger"><%= cat.status %></span>
+															<% elsif cat.status == "希望終了" or cat.status == "一時中断" %>
+																ステータス：<span class="btn btn-outline-secondary disabled"><%= cat.status %></span>
+															<% end %>
+														</td>
+													</tr>
+													<tr>
+														<td>性別</td>
+														<td><%= cat.sex %></td>
+														<td>期間：<%= cat.term %></td>
+													</tr>
+													<tr>
+														<td>血液型</td>
+														<td><%= cat.blood_type %></td>
+														<td>種類：<%= cat.breed %></td>
+													</tr>
+													<tr>
+														<td colspan="3">note：<%= cat.note %></td>
+													</tr>
+												</table>
+									      	</div>
+									    <% else %>
+									      	<div class = "cat-profile_ledis">
+												<table class="table">
+													<tr>
+														<td>NO.<%= i %></td>
+														<td>お名前　　<%= cat.name %></td>
+														<td>
+															<% if cat.status == "希望中" %>
+																ステータス：<span class="btn btn-danger"><%= cat.status %></span>
+															<% elsif cat.status == "希望終了" or cat.status == "一時中断" %>
+																ステータス：<span class="btn btn-outline-secondary disabled"><%= cat.status %></span>
+															<% end %>
+														</td>
+													</tr>
+													<tr>
+														<td>性別</td>
+														<td><%= cat.sex %></td>
+														<td>期間：<%= cat.term %></td>
+													</tr>
+													<tr>
+														<td>血液型</td>
+														<td><%= cat.blood_type %></td>
+														<td>種類：<%= cat.breed %></td>
+													</tr>
+													<tr>
+														<td colspan="3">note：<%= cat.note %></td>
+													</tr>
+												</table>
+									      	</div>
+									    <% end %>
+								</div>
+							<% end %>
 					<% else %>
-						<p class="text-center">現在、登録されているにゃんこはいません。</p>
+						<p>現在登録された猫はいません。</p>
 					<% end %>
 			</div>
 		</div>

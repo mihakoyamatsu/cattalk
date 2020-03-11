@@ -8,15 +8,16 @@ class User::CatsController < ApplicationController
     @cat = Cat.new(cat_params)
     @cat.user_id = current_user.id
     if @cat.save
-    redirect_to user_user_path(current_user.id)
     flash[:notice]= 'MY CATを作成しました。'
-    else
     redirect_to user_user_path(current_user.id)
+    else
+    flash.now[:alart]= 'MY CAT作成失敗しました。'
+    render :new
     end
   end
 
   def index
-    @cats = Cat.all
+    @cats = Cat.where(purpose:0 ,purpose:1)
     if params[:sort] == "0"
         @cats_purpose = Cat.where(purpose: 0)
     elsif params[:sort] == "1"
@@ -33,17 +34,18 @@ class User::CatsController < ApplicationController
   def update
     @cat = Cat.find(params[:id])
     if @cat.update(cat_params)
-    redirect_to user_user_path(current_user.id)
     flash[:notice]= 'MY CATを編集しました。'
+    redirect_to user_user_path(current_user.id)
     else
-      render :edit
+    flash.now[:alart]= 'MY CATを編集に失敗しました。'
+    render :edit
     end
   end
 
   def destroy
   	 @cat = Cat.find(params[:id])
   	 @cat.destroy
-  	 flash[:notice]= 'ネコ情報を削除しました'
+  	 flash[:notice]= 'MY CATを削除しました'
   	 redirect_to user_user_path(current_user.id)
   end
 

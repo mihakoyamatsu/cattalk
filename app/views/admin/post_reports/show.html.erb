@@ -1,38 +1,55 @@
-<section class="container">
-  <tbody>
-    <table class="table index-box">
-      <h1>通報された投稿詳細</h1>
-      <tr> 
-      	<td><%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
-        <%= @post.user.name %></td>
-        <td colspan="3"><%= @post.body %></td>
-      </tr>
-      <tr>
-        <td style="width:8%;"><i class="fa fa-commenting-o" aria-hidden="true"><%= @post.comments.count %></i></td>
-        <td style="width:8%;"><i class="fas fa-paw" aria-hidden="true" style="color: red;"><%= @post.favorites.count %></i></td>
-        <td><%= link_to "不適切な投稿として削除する", admin_post_reports_hide_path(@report.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %></td>
-      </tr>
-    </table>
-
-
-    <table class="table index-box">
-      <% @post.comments.each do |comment| %>
-        <tr>
-          <td>
-              <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg" %><br>
-              <%= comment.user.name %>
-          </td>
-          <td>
-              <%= comment.created_at.strftime('%Y/%m/%d') %><br>
-              <%= comment.comment %>
-          </td>
-          <% if comment.is_deleted == nil %>
-            <td>
-                <span class="badge badge-pill badge-primary">削除されたコメント</span>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-    </table>
-  </tbody>
-</section>
+<div class="admin-outline">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <table class="table index-box">
+                    <tbody>
+                        <h2>投稿詳細</h2>
+                        <tr>
+                          	<td style="width:20%;">
+                                <%= attachment_image_tag @post.user, :image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg", size:'50×50' ,class: 'rounded-circle' %>
+                                <%= @post.user.name %>
+                            </td>
+                            <td colspan="3">
+                                <%= @post.body %><br>
+                                <% @post.post_images.each do |post_image| %>
+                                    <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-commenting-o" aria-hidden="true"><%= @post.comments.count %></i>
+                                <i class="fas fa-paw" aria-hidden="true" style="color: red;"><%= @post.favorites.count %></i>
+                            </td>
+                            <td>
+                                <%= link_to "不適切な投稿として削除する", admin_post_reports_hide_path(@report.id), method: :put, "data-confirm" =>"本当に消しますか?" ,class: "btn btn-sm btn-danger pull-right" %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table index-box">
+                    <tbody>
+                        <% @post.comments.each do |comment| %>
+                            <tr>
+                                <td>
+                                    <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format:'jpeg', fallback: "no_image.jpg" %><br>
+                                    <%= comment.user.name %>
+                                </td>
+                                <td>
+                                    <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+                                    <%= comment.comment %>
+                                </td>
+                                <% if comment.is_deleted == nil %>
+                                  <td>
+                                      <span class="badge badge-pill badge-primary">削除されたコメント</span>
+                                  </td>
+                                <% end %>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

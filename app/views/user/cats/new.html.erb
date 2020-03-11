@@ -1,0 +1,95 @@
+<% if flash.now[:alart] %>
+    <div class="alert alert-danger">
+        <%= flash.now[:alart] %>
+    </div>
+<% end %>
+<%= render 'user/cats/error_messages', cat: @cat %>
+<div class="cat-info">
+    <h3>MY CAT 新規追加</h3>
+    <div class ="container">
+        <div class="row">
+            <%= form_for(@cat, url: user_cats_path, method: :post) do |f| %>
+                <div class="cat-profile-new">
+        				    <table style="margin: 20px 20px">
+              					<tr>
+              						  <td>プロフィール画像</td>
+              						  <td><%= f.attachment_field :cat_images_images,multiple: true %></td>
+              					</tr>
+              					<tr>
+              						  <td>猫の名前</td>
+              						  <td><%= f.text_field :name %></td>
+              					</tr>
+              					<tr>
+              						  <td>性別</td>
+              						  <td><%= f.radio_button :sex, :オス,:checked => true %>
+                          					<%= f.label :オス %>
+                          			<%= f.radio_button :sex, :オス去勢済み %>
+                          					<%= f.label :オス去勢済み %>
+                          			<%= f.radio_button :sex, :メス %>
+                          					<%= f.label :メス %>
+                          			<%= f.radio_button :sex, :メス避妊済み %>
+                          					<%= f.label :メス避妊済み %>
+                            </td>
+              					</tr>
+              					<tr>
+              						  <td>種類</td>
+              						  <td><%= f.select :breed, [["MIX キジトラ"],["MIX サバトラ"],["MIX 茶トラ"],["MIX 黒"],["MIX グレー"],["MIX 白"],["MIX 黒白"],["MIX 茶白"],["MIX サビ"],["MIX ミケ"],["アビシニアン"],["アメリカンカール・ショートヘア"],["アメリカンショートヘア"],["アメリカンワイヤーヘア"],["エキゾチックショートヘア"],["エジプシャンマウ"],["オシキャット"],["オリエンタルショートヘア"],["キムリック"],["コーニッシュレックス"],["コラット"],["サイベリアン"],["ジャパニーズ・ボブテイル"],["シャム"],["シャルトリュー"],["シンガプーラ"],["スクーカム"],["スコティッシュフォールド"],["スコティッシュフォールド・ロングヘア"],["スフィンクス"],["セルカークレックス"],["ソマリ"],["ターキッシュアンゴラ"],["ターキッシュバン"],["デボンレックス"],["トンキニーズ"],["ノルウェージャンフォレストキャット"],["バーマン"],["バーミーズ"],["ハバナブラウン"],["バリニーズ"],["ヒマラヤン"],["ブリティッシュショートヘア"],["ペルシャ"],["ベンガル"],["ボンベイ"],["マンクス"],["マンチカール"],["マンチカン"],["マンチカン・ロングヘア"],["メインクーン"],["ラガマフィン"],["ラグドール"],["ラパーム"],["ロシアンブルー"],["その他の猫種"]] %></td>
+              					</tr>
+              					<tr>
+              						  <td>年齢</td>
+              						  <td><%= f.select :age, [["1ヶ月未満"],["1~3ヶ月"],["4~6ヶ月"],["7~12ヶ月"],["1~2歳"],["2~3歳"],["4~7歳"],["8~10歳"],["11歳以上"]] %></td>
+              					</tr>
+              					<tr>
+              						  <td>体重</td>
+              						  <td><%= f.text_field :weight,placeholder:'~ kg, ~ g', class: "form-control" %></td>
+              					</tr>
+              					<tr>
+              						  <td>血液型</td>
+              						  <td><%= f.select :blood_type, Cat.blood_types.keys, class: 'btn btn-default form-control' %></td>
+              					</tr>
+              					<tr>
+              						  <td>飼い始めた経緯</td>
+              						  <td><%= f.text_area :story, class: "form-control" %></td>
+              					</tr>
+        					</table>
+        				</div>
+          			<div class="cat-message-new">
+            				<h5 class="ml-3">メッセージ</h5>
+              					<table style="margin: 20px 20px">
+              						  <tr>
+              						      <td>利用目的</td>
+                                <td><%= f.radio_button :purpose, :供血を希望している,:checked => true %>
+                        					  <%= f.label :供血を希望している %>
+                        				    <%= f.radio_button :purpose, :輸血を希望している %>
+                        					  <%= f.label :輸血を希望している %>
+                        				    <%= f.radio_button :purpose, :どちらも希望しない %>
+                        					  <%= f.label :どちらも希望しない %>
+                                </td>
+              	          	</tr>
+              	          	<tr>
+              	          			<td>希望日時</td>
+              	          			<td><%= f.text_area :date, placeholder: "平日可能、曜日指定、指定なしなど", class: "form-control" %></td>
+              	          	</tr>
+                      			<tr>
+                      				  <td>希望エリア</td>
+                      				  <td><%= f.text_area :area,placeholder: '近郊希望、他県OK、〜㎞以内、指定しない など', class: "form-control"  %></td>
+                      			</tr>
+                      			<tr>
+                      				  <td>期間</td>
+                      				  <td><%= f.select :term, [["指定なし"],["1~4日以内"],["1週間以内"],["2~3週間以内"],["1ヶ月以内"],["2~3ヶ月以内"],["半年以内"],["1年以内"],["その他"]] %></td>
+                      			</tr>
+                      			<tr>
+                      				  <td>備考</td>
+                      				  <td><%= f.text_area :note, class: "form-control" %></td>
+                      			</tr>
+                      			<tr>
+                      				  <td>ステータス</td>
+                      				  <td><%= f.select :status, Cat.statuses.keys.to_a, class: 'form-control btn btn-default' %></td>
+                      			</tr>
+                        </table>
+                </div>
+                <%= f.submit'登録する' ,class: "btn btn-warning btn-lg ml-5 "%>
+            <% end %>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,14 @@
 class User::UserReportsController < ApplicationController
 	def create
 	  @user = User.find(params[:user_id])
-	  report = current_user.reporting_relationships.new(report_params)
-      report.reported_user_id = @user.id
-	if report.save!
-	  redirect_to root_path
+	  @report = current_user.reporting_relationships.new(report_params)
+      @report.reported_user_id = @user.id
+	if @report.save
+	  redirect_to user_user_path(@user)
+	  flash[:notice]="通報しました。"
 	else
-	  render: template: "users/show"
+	  redirect_to user_user_path(@user)
+	  flash[:alart]="通報に失敗しました。"
 	end
 	end
 

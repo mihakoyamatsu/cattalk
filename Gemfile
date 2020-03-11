@@ -79,7 +79,7 @@ gem 'ransack'
 
 gem 'summernote-rails', '~> 0.8.12.0'
 gem 'data-confirm-modal'
-
+gem 'rails-i18n'
 group :production do
   gem 'mysql2'
 end

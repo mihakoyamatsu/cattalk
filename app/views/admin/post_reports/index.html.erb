@@ -1,14 +1,16 @@
-<div class="container">
-    <div class="row">
-        <div class="col-10 offset-1">
-            <h1>通報された投稿一覧</h1>
+<div class="admin-outline">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h2>通報された投稿一覧（<span><%= @reports.count %>件</span>）</h2>
                     <% if @reports.present? %>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="th-userinfo">投稿ユーザー情報</th>
-                                    <th class="th-post-body">本文</th>
+                                    <th class="th-userinfo">投稿したユーザー</th>
+                                    <!-- <th class="th-post-body">本文</th> -->
                                     <th>通報内容</th>
+                                    <th>通報したユーザー</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -21,16 +23,20 @@
                                             <i class="fa fa-commenting-o" aria-hidden="true"><%= post.comments.count %></i>
                                             <i class="fas fa-paw" aria-hidden="true" style="color: red;"><%= post.favorites.count %></i>
                                         </td>
-                                        <td class="td-post-body">
-                                            <%= link_to post.body, admin_post_report_path(post.id) %>
-                                            <% post.post_images.each do |post_image| %>
-                                                <%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %>
-                                            <% end %>
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                        <!--td class="td-post-body"-->
+                                            <!--%= link_to post.body, admin_post_report_path(report.id) %-->
+                                            <!--% post.post_images.each do |post_image| %-->
+                                                <!--%= attachment_image_tag post_image, :image, :fill, 100, 100, format:'jpeg' , fallback: "no_image.jpg", size:'50×50' %-->
+                                            <!--% end %-->
+                                        <!-- </td> -->
                                         <td>
                                             <%= report.report_message %>
+                                        </td>
+                                        <td>
+                                            <%= link_to report.user.name, admin_user_path(report.user.id) %>
+                                        </td>
+                                        <td>
+                                            <%= link_to "詳細へ",admin_post_report_path(report.id),class: "btn btn-sm btn-primary pull-right" %>
                                         </td>
                                     </tr>
                                     <tr>
@@ -43,8 +49,8 @@
                     <% else %>
                         <p>現在、通報されている投稿はありません。</p>
                     <% end %>
+            </div>
         </div>
     </div>
 </div>
-
 

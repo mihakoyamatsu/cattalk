@@ -7,9 +7,11 @@ class User::PostReportsController < ApplicationController
 	    @post = Post.find(params[:post_id])
       @report = current_user.post_reports.new(report_params)
       @report.post_id = @post.id
-    if @report.save!
+    if @report.save
       redirect_to user_post_path(@post)
+      flash[:notice] = "投稿を通報しました。"
     else
+      flash.now[:alart]= "通報に失敗しました。"
       render :new
     end
 	end

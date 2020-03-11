@@ -2,16 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-//cat newのモーダル
-.cat-modal-header{
-    background-color: burlywood;
-}
-.cat-modal-footer{
-    background-color: burlywood;
-}
-.cat-modal-body{
-    background-color: blanchedalmond;
-}
+
 
 #cat_status{
     background-color: #fff;
@@ -21,11 +12,12 @@
 }
 
 .cats-index{
+    padding-top:  20px;
     padding-bottom: 80px;
 }
 
 .user-profile{
-	padding: 1em 1em;
+	padding: 2em 4em;
     margin: 2em 0;
     color: #565656;
     background: #ffffc1;
@@ -33,6 +25,14 @@
     border: dashed 2px #ffc3c3;
     border-radius: 8px;
 }
+.user-profile div{
+    margin-top: 10px;
+}
+
+.user-profile div label {
+    display: contents;
+}
+
 .cat-profile_mens {
     padding: 1em 3em;
     margin: 2em 0;
@@ -79,6 +79,7 @@
 
 .cat-info{
     margin:5em auto;
+    margin-bottom: 10em;
     position: relative;
     padding: 0.5em 1.5em;
     width: 80%;

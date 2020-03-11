@@ -1,5 +1,5 @@
 class User::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update, :hide]
+  before_action :authenticate_user!, only: [:edit, :update, :hide,:favorites,:show, :follows, :followers]
   before_action :ensure_correct_user, only: [:edit, :update, :hide]
   def show
       @user = User.find(params[:id])
@@ -30,8 +30,13 @@ class User::UsersController < ApplicationController
 
   def update
   	@user = User.find(params[:id])
-    @user.update(user_params)
+  if @user.update(user_params)
+    flash[:notice]="プロフィールを更新しました。"
   	redirect_to user_user_path(@user)
+  else
+    flash.now[:alart]="プロフィールを更新に失敗しました。"
+    render :show
+  end
   end
 
   def favorites
